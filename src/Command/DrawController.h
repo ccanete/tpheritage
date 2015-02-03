@@ -11,7 +11,10 @@
 
 //--------------------------------------------------- Interfaces utilisées
 #include <map>
+#include <queue>
+
 #include "../Models/Figure.h"
+#include "Command.h"
 
 //------------------------------------------------------------- Constantes 
 
@@ -85,6 +88,7 @@ private:
 //------------------------------------------------------- Attributs privés
     //std::vector<Command> commands;
     std::map <char *,Figure *> figuresList;
+    std::queue<Command> commandsList;
 
 //---------------------------------------------------------- Classes amies
 
