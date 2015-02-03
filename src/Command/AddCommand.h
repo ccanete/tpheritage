@@ -9,6 +9,8 @@
 #if ! defined ( AddCommand_H )
 #define AddCommand_H
 
+#include "Command.h"
+
 //--------------------------------------------------- Interfaces utilisées
 
 //------------------------------------------------------------- Constantes 
@@ -21,35 +23,13 @@
 //
 //------------------------------------------------------------------------ 
 
-class AddCommand : public Ancetre
+class AddCommand : public Command
 {
 //----------------------------------------------------------------- PUBLIC
 
 public:
-//----------------------------------------------------- Méthodes publiques
-    // type Méthode ( liste de paramètres );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
 
-
-//------------------------------------------------- Surcharge d'opérateurs
-    AddCommand & operator = ( const AddCommand & unAddCommand );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
-
-
-//-------------------------------------------- Constructeurs - destructeur
-    AddCommand ( const AddCommand & unAddCommand );
-    // Mode d'emploi (constructeur de copie) :
-    //
-    // Contrat :
-    //
-
-    AddCommand ( );
+    AddCommand ();
     // Mode d'emploi :
     //
     // Contrat :

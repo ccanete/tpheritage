@@ -10,6 +10,8 @@
 #define DrawController_H
 
 //--------------------------------------------------- Interfaces utilisées
+#include <map>
+#include "../Models/Figure.h"
 
 //------------------------------------------------------------- Constantes 
 
@@ -18,6 +20,8 @@
 #define TWO 2
 #define MAXUNDO 20
 #define MAP
+
+
 
 //------------------------------------------------------------------ Types 
 
@@ -79,9 +83,8 @@ private:
 
 private:
 //------------------------------------------------------- Attributs privés
-    //std::vector<char> figures;
     //std::vector<Command> commands;
-    //std::vector<std::vector<*char>> selections;
+    std::map <char *,Figure *> figuresList;
 
 //---------------------------------------------------------- Classes amies
 

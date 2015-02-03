@@ -33,6 +33,8 @@ DrawController::DrawController ( )
 #ifdef MAP
     cout << "Appel au constructeur de <DrawController>" << endl;
 #endif
+        //std::map <char *,Figure *> figuresList;
+
 } //----- Fin de DrawController
 
 
@@ -185,6 +187,10 @@ std::string DrawController::addFigure ( char cmd , char * params)
 			coordX1 = strtol(secondEntry,NULL,10);
 			coordY1 = strtol(thirdEntry,NULL,10);
 			radius = strtol(fourthEntry,NULL,10);
+
+			Figure * myFigure;
+			figuresList.insert ( std::pair<char *,Figure *>(firstEntry, myFigure) );	
+
 
 			cout << "#Circle " << firstEntry << " of center (" << coordX1 << ", " << coordY1 << ") and radius " << radius << " has been created.\r\n";
 
