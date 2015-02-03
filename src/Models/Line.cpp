@@ -28,7 +28,7 @@ using namespace std;
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
-void Line::Move(signed long dx, signed long dy)
+void Line::Move(const signed long &dx, const signed long &dy)
 // 	Algorithme : Use of Move point's methode.
 	{
 	pointA.Move(dx, dy);
@@ -36,7 +36,7 @@ void Line::Move(signed long dx, signed long dy)
 	}
 //----- Fin de Méthode
 
-bool Line::IsInSelection(Point a, Point b) 
+bool Line::IsInSelection(const Point &a, const Point &b) 
 // 	Algorithme : Use of IsInSelection point's methode.
 	{
 		if (pointA.IsInSelection(a, b) && pointB.IsInSelection(a, b))

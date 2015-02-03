@@ -12,9 +12,15 @@
 //--------------------------------------------------- Interfaces utilisées
 #include <map>
 #include <queue>
+#include <string>
+#include "Command.h"
 
 #include "../Models/Figure.h"
-#include "Command.h"
+#include "../Models/Polyline.h"
+#include "../Models/Point.h"
+#include "../Models/Circle.h"
+#include "../Models/Rectangle.h"
+#include "../Models/Line.h"
 
 //------------------------------------------------------------- Constantes 
 
@@ -54,7 +60,7 @@ public:
     // Contrat :
     //
 
-    std::string ExecuteCommand (std::string commandInput);
+    int ExecuteCommand (string commandInput);
     // Mode d'emploi :
     //
     // Contrat :
@@ -68,27 +74,27 @@ public:
 
 private:
 //------------------------------------------------------- Méthodes privées
-
-        std::string addFigure (char cmd , char * params);
+    int addFigure (char cmd , char * params);
 
 
 /*
-    std::string add             ( std::string cmd, std::string params );
-    std::string deleteFigure    ( char * params );
-    std::string move            ( char * params );
-    std::string load            ( char * params );
-    std::string save            ( char * params );
-    std::string list            ();
-    std::string undo            ();
-    std::string redo            ();
-    std::string clear           ();
+    string add             ( string cmd, string params );
+    string deleteFigure    ( char * params );
+    string move            ( char * params );
+    string load            ( char * params );
+    string save            ( char * params );
+    string list            ();
+    string undo            ();
+    string redo            ();
+    string clear           ();
     */
 
 private:
 //------------------------------------------------------- Attributs privés
-    //std::vector<Command> commands;
-    std::map <char *,Figure *> figuresList;
-    std::queue<Command> commandsList;
+    map <char *,Figure *> figuresList;
+    queue<Command> commandsList;
+    vector<Command> commands;
+    map <char *,Figure *> figuresList;
 
 //---------------------------------------------------------- Classes amies
 

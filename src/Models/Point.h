@@ -32,7 +32,7 @@ public:
     //
     // Contrat :
     //
-    Point Move(signed long dx, signed long dy);
+    Point Move(const signed long &dx, const signed long &dy);
     // Mode d'emploi :
     //
     // Contrat :

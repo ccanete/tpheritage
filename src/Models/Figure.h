@@ -29,11 +29,11 @@ class Figure
 
 public:
 //----------------------------------------------------- Méthodes publiques
-    // type Méthode ( liste de paramètres );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
+    virtual void Move(const signed long &dx, const signed long &dy) = 0;
+    // Mode d'emploi : Methode that move a point by dx over x-axis and by 
+    //                 dy over y-axis.
+    // @param : Value that will be incremented over x-axis
+    // @param : Value that will be incremented over y-axis
 
     string GetName();
     // Mode d'emploi :
@@ -41,7 +41,7 @@ public:
     // Contrat :
     //
 
-    bool IsInSelection(Point a, Point b);
+    virtual bool IsInSelection(const Point &a, const Point &b) = 0;
     // Mode d'emploi :
     //
     // Contrat :

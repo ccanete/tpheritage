@@ -33,7 +33,7 @@ using namespace std;
 //{
 //} //----- Fin de Méthode
 
-Point Point::Move(signed long dx, signed long dy) 
+Point Point::Move(const signed long &dx, const signed long &dy) 
 {
 // Algorithme :
 //

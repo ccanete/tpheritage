@@ -10,19 +10,16 @@
 //---------------------------------------------------------------- INCLUDE
 //-------------------------------------------------------- Include système
 
-using namespace std;
-
 #include <iostream>
-#include <fstream>
-#include <string>
-#include <sstream>
-#include <cstring>
-#include <ctime>
+#include <vector>
 #include <cstdlib>
 
 
 //------------------------------------------------------ Include personnel
 #include "DrawController.h"
+
+using namespace std;
+
 
 //-------------------------------------------- Constructeurs - destructeur
 
@@ -33,6 +30,10 @@ DrawController::DrawController ( )
 #ifdef MAP
     cout << "Appel au constructeur de <DrawController>" << endl;
 #endif
+<<<<<<< Updated upstream
+=======
+        //map <char *,Figure *> figuresList;
+>>>>>>> Stashed changes
 
 } //----- Fin de DrawController
 
@@ -49,20 +50,19 @@ DrawController::~DrawController ( )
 //-------------------------------------------------- Methodes
 
 
-std::string DrawController::ExecuteCommand ( std::string commandInput )
+int DrawController::ExecuteCommand ( string commandInput )
 //Algorithme :
 //
 {
+	// Variables initialization 
+	char * textChain;
+	char * command;
+	char * params;
 
-	//Transform users command
-	char * textChain = ( char * ) commandInput.c_str();
-	char * command = strtok(textChain, " ");
-	char * params = NULL;
-	params = strtok(NULL,"\r");
-
-	#ifdef MAP
-		cout << "command : " << command << "\r\n" << "params : " << params << "\r\n";
-	#endif
+	// Transformation 
+	textChain = ( char * ) commandInput.c_str();
+	command = strtok(textChain, " ");
+	params = strtok(NULL ,"\r");
 
 	/*---------- COMMAND CIRCLE ----------*/
 	if (!strcmp(command,"C"))
@@ -85,7 +85,7 @@ std::string DrawController::ExecuteCommand ( std::string commandInput )
 	/*----------COMMAND POLY-LINE----------*/
 	else if (!strcmp(command,"PL") )
 	{
-		return addFigure('L', params);
+		return addFigure('P', params);
 	}
 
 	/*----------COMMAND SELECTION----------*/
@@ -144,24 +144,24 @@ std::string DrawController::ExecuteCommand ( std::string commandInput )
 	/*----------COMMAND EXIT----------*/
 	else if (!strcmp(command,"EXIT"))
 	{
-		return "EXIT\r\n# The program is being closed.";
+		return 1;
 	}
 
 	else
 	{
-		return "ERR\r\n# Unknown command\n";
+		return 2;
 	}
 
 } //----- Fin de Méthode
 
 
-std::string DrawController::addFigure ( char cmd , char * params)
+int DrawController::addFigure ( char cmd , char * params)
 {
 	char * firstEntry, * secondEntry, * thirdEntry, * fourthEntry, * fifthEntry;
 	long coordX1, coordX2, coordY1, coordY2, radius;
 
 
-	if(cmd == 'C')
+	if (cmd == 'C')
 	{
 
         firstEntry = strtok(params, " ");
@@ -171,15 +171,18 @@ std::string DrawController::addFigure ( char cmd , char * params)
 
 		if ( firstEntry == NULL)
 		{
-			cout << "ERR\r\n" << "# Invalide name.\r\n";
+			cout << "ERR\r\n";
+			cout << "# Invalide name.\r\n";
 		}
 		else if (secondEntry == NULL || thirdEntry == NULL)
 		{
-			cout << "ERR\r\n" << "# Invalide center.\r\n";
+			cout << "ERR\r\n";
+			cout << "# Invalide center.\r\n";
 		}
 		else if ( fourthEntry == NULL)
 		{
-			cout << "ERR\r\n" << "# Invalide radius.\r\n";
+			cout << "ERR\r\n";
+			cout << "# Invalide radius.\r\n";
 		}
 		else
 		{
@@ -187,6 +190,7 @@ std::string DrawController::addFigure ( char cmd , char * params)
 			coordY1 = strtol(thirdEntry,NULL,10);
 			radius = strtol(fourthEntry,NULL,10);
 
+<<<<<<< Updated upstream
 			Figure * myFigure;
 			figuresList.insert ( std::pair<char *,Figure *>(firstEntry, myFigure) );
 			//AddCommand * myCommand;
@@ -197,11 +201,16 @@ std::string DrawController::addFigure ( char cmd , char * params)
 
 			return "OK\r\n";
 
+=======
+>>>>>>> Stashed changes
 			// Circle creation method
-			//(firstEntry, coordX1, coordX2, radius);
+			Circle test = Circle(firstEntry, coordX1, coordY1, radius);
+			////test.ToString();
+			cout << test;
 		}
+		return 0;
 	}
-	if(cmd == 'R')
+	if (cmd == 'R')
 	{
 		firstEntry = strtok(params, " ");
 		secondEntry = strtok(NULL, " "); 
@@ -211,15 +220,18 @@ std::string DrawController::addFigure ( char cmd , char * params)
 
 		if ( firstEntry == NULL)
 		{
-			cout << "ERR\r\n" << "# Invalide name.\r\n";
+			cout << "ERR\r\n";
+			cout << "# Invalide name.\r\n";
 		}
 		else if (secondEntry == NULL || thirdEntry == NULL)
 		{
-			cout << "ERR\r\n" << "# Invalide first point.\r\n";
+			cout << "ERR\r\n";
+			cout << "# Invalide first point.\r\n";
 		}
 		else if ( fourthEntry == NULL || fifthEntry == NULL)
 		{
-			cout << "ERR\r\n" << "# Invalide second point.\r\n";
+			cout << "ERR\r\n";
+			cout << "# Invalide second point.\r\n";
 		}
 		else
 		{
@@ -227,26 +239,15 @@ std::string DrawController::addFigure ( char cmd , char * params)
 			coordY1 = strtol(thirdEntry,NULL,10);
 			coordX2 = strtol(fourthEntry,NULL,10);
 			coordY2 = strtol(fifthEntry,NULL,10);
-
-			cout << "OK\r\n" <<
-					"# Rectangle " << 
-					firstEntry << 
-					" of coordinates (" << 
-					coordX1 << 
-					", " << 
-					coordY1 <<
-					") and (" << 
-					coordX2 << 
-					", " << 
-					coordY2 << 
-					") has been created.\r\n";
-			return "OK\r\n";
 
 			// Rectangle creation method
-			//(firstEntry, coordX1, coordY1, coordX2, coordY2);
-		}		
+			Rectangle test = Rectangle(firstEntry, Point(coordX1, coordY1), Point(coordX2, coordY2));
+			////test.ToString();
+			cout << test;
+		}
+		return 0;
 	}
-	if(cmd == 'L')
+	if (cmd == 'L')
 	{
 		firstEntry = strtok(params, " ");
 		secondEntry = strtok(NULL, " "); 
@@ -256,18 +257,18 @@ std::string DrawController::addFigure ( char cmd , char * params)
 
 		if ( firstEntry == NULL)
 		{
-			cout << "ERR\r\n" << 
-					"# Invalide name.\r\n";
+			cout << "ERR\r\n";
+			cout << "# Invalide name.\r\n";
 		}
 		else if (secondEntry == NULL || thirdEntry == NULL)
 		{
-			cout << "ERR\r\n" <<
-					"# Invalide first point.\r\n";
+			cout << "ERR\r\n";
+			cout << "# Invalide first point.\r\n";
 		}
 		else if ( fourthEntry == NULL || fifthEntry == NULL)
 		{
-			cout << "ERR\r\n" <<
-					"# Invalide second point.\r\n";
+			cout << "ERR\r\n";
+			cout << "# Invalide second point.\r\n";
 		}
 		else
 		{
@@ -275,60 +276,49 @@ std::string DrawController::addFigure ( char cmd , char * params)
 			coordY1 = strtol(thirdEntry,NULL,10);
 			coordX2 = strtol(fourthEntry,NULL,10);
 			coordY2 = strtol(fifthEntry,NULL,10);
-
-			cout << "OK\r\n" 
-					"# Line " << firstEntry << " passing by (" << coordX1 << ", " << coordY1 <<
-					") and (" << coordX2 << ", " << coordY2 << ") has been created.\r\n";
-			return "OK\r\n";
+			
 			// Line creation method
-			//(firstEntry, coordX1, coordY1, coordX2, coordY2);
+			Line test = Line(firstEntry, Point(coordX1, coordY1), Point(coordX2, coordY2));
+			////test.ToString();
+			cout << test;
 		}
-		
+		return 0;
 	}
-	if(cmd == 'P')
+	if (cmd == 'P')
 	{
-		long coordinates [10]; // Max numbers of points for a polyline ?
-
 		int i = ZERO;
+		vector<Point> myVector;
 		firstEntry = strtok(params, " ");
 		if (firstEntry == NULL)
 		{
-			cout << "ERR\r\n" << 
-					"# Invalide name.\r\n";
-			//continue;
+			cout << "ERR\r\n";
+			cout << "# Invalide name.\r\n";
+			return 1;
 		}
 
 		while (ONE)
 		{
-			secondEntry = strtok(NULL, " "); 
-			if (secondEntry == NULL)
+			secondEntry = strtok(NULL, " ");
+			thirdEntry = strtok(NULL, " "); 
+			if (thirdEntry == NULL)
 			{
 				break;
 			}
-			coordinates[i] = strtol(secondEntry,NULL,10);
+			myVector.push_back(Point(strtol(secondEntry,NULL,10), strtol(thirdEntry,NULL,10)));
 			i++;
 		}
 
-		if ( i%2 )
+		if ( secondEntry != NULL )
 		{
-			cout << "ERR\r\n" <<
-					"# Invalide " << (i + ONE)/TWO << "th point.\r\n";
-			//continue;
+			cout << "ERR\r\n";
+			cout << "# Invalide " << i + ONE << "th point.\r\n";
+			return 1;
 		}
-		
-		cout << "OK\r\n" <<
-				"# Poly-line " << firstEntry << " passing by ";
 
-		for (int j = ZERO; j < i - TWO; j += TWO)
-		{
-			cout << "(" << coordinates[j] << ", " << coordinates[j+ONE] << "), ";
-		}
-		cout << "(" << coordinates[i - TWO] << ", " << coordinates[i - ONE] << ")";
-		cout <<  " has been created.\r\n";
-		return "OK\r\n";
-
-		// TO BE CONTINUED
-		
+		Polyline test = Polyline(firstEntry, myVector);
+		//test.ToString();
+		cout << test;
+		myVector.clear();
+		return 0;
 	}
-	return NULL;
 }

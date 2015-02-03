@@ -10,10 +10,10 @@
 //---------------------------------------------------------------- INCLUDE
 
 //-------------------------------------------------------- Include système
-using namespace std;
 
 //------------------------------------------------------ Include personnel
 #include "Command.h"
+using namespace std;
 
 
 //-------------------------------------------- Constructeurs - destructeur

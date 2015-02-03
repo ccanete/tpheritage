@@ -34,7 +34,7 @@ using namespace std;
 //{
 //} //----- Fin de Méthode
 
-void Rectangle::Move(signed long dx, signed long dy)
+void Rectangle::Move(const signed long &dx, const signed long &dy)
 // 	Algorithme :
 //				
 	{
@@ -43,7 +43,7 @@ void Rectangle::Move(signed long dx, signed long dy)
 	}
 //----- Fin de Méthode
 
-bool Rectangle::IsInSelection(Point a, Point b) 
+bool Rectangle::IsInSelection(const Point &a, const Point &b) 
 // 	Algorithme :
 //	
 	{

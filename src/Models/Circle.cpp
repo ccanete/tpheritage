@@ -36,7 +36,7 @@ using namespace std;
 //{
 //} //----- Fin de Méthode
 
-void Circle::Move(signed long dx, signed long dy)
+void Circle::Move(const signed long &dx, const signed long &dy)
 // Algorithme :
 //
 {
@@ -44,11 +44,11 @@ void Circle::Move(signed long dx, signed long dy)
 }
 //----- Fin de Méthode
 
-bool Circle::IsInSelection(Point a, Point b)
+bool Circle::IsInSelection(const Point &a, const Point &b)
 // Algorithme :
 //
 {
-	return center.IsInSelection(a.Move(radius, radius), b.Move(-radius, -radius));
+	return center.IsInSelection(Point(a).Move(radius, radius), Point(b).Move(-radius, -radius));
 }
 //----- Fin de Méthode
 

@@ -20,7 +20,7 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
-RemoveCommand::RemoveCommand (Figure* figure, long dx, long dy) : figure_(figure), x_(dx), y_(dy)
+RemoveCommand::RemoveCommand (Figure* figure, long dx, long dy) : figure_(figure), dx_(dx), dy_(dy)
 {
 	#ifdef MAP
     	cout << "Appel au constructeur de <RemoveCommand>" << endl;
@@ -33,7 +33,7 @@ bool RemoveCommand::Do ()
 	    cout << "Remove object" << endl;
 	#endif
 
-	figure_->Remove(dx,dy);
+	//figure_->Remove(dx_,dy_);
 	return true;
 
 } //----- Fin de RemoveCommand
@@ -44,7 +44,7 @@ bool RemoveCommand::Undo ()
 	    cout << "UnRemove object" << endl;
 	#endif
 
-	figure_->Remove(-dx,-dy);
+	//figure_->Remove(-dx_,-dy_);
 	return true;
 
 } //----- Fin de RemoveCommand

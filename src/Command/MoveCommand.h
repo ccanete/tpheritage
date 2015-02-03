@@ -10,7 +10,8 @@
 #define MoveCommand_H
 
 //--------------------------------------------------- Interfaces utilisées
-
+#include "Command.h"
+#include "../Models/Figure.h"
 //------------------------------------------------------------- Constantes 
 
 //------------------------------------------------------------------ Types 
@@ -35,7 +36,7 @@ public:
      * @param dy Delta y
      */
 
-    virtual bool DO();
+    virtual bool Do();
 
     virtual bool Undo();
 

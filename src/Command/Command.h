@@ -21,23 +21,23 @@
 //
 //------------------------------------------------------------------------ 
 
-class Command :
+class Command
 {
 //----------------------------------------------------------------- PUBLIC
 
 public:
-    Command(models::Group* inGroup);
+    Command(/*models::Group* inGroup*/);
     /**
      * @constructor
      * @param inGroup The group where the command operates
      */
     
-    virtual bool Do()=0;
+    virtual bool Do() = 0;
     /**
      * Executes or redo the command
      */
 
-    virtual bool Undo()=0;
+    virtual bool Undo() = 0;
     /**
      * Undo the command
      */

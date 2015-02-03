@@ -41,13 +41,6 @@ string Figure::GetName()
 }
 //----- Fin de Méthode
 
-bool Figure::IsInSelection(Point a, Point b) 
-{
-// Algorithme :
-//
-    return false;
-}
-//----- Fin de Méthode
 //------------------------------------------------- Surcharge d'opérateurs
 /*Figure & Figure::operator = ( const Figure & unFigure )
 // Algorithme :

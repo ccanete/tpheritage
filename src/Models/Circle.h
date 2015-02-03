@@ -35,13 +35,13 @@ public:
     // Contrat :
     //
 
-    void Move(signed long dx, signed long dy);
+    void Move(const signed long &dx, const signed long &dy);
     // Mode d'emploi : Methode that move a point by dx over x-axis and by 
     //                 dy over y-axis.
     // @param : Value that will be incremented over x-axis
     // @param : Value that will be incremented over y-axis
 
-    bool IsInSelection(Point a, Point b);
+    virtual bool IsInSelection(const Point &a, const Point &b);
     // Mode d'emploi : Methode that verify if the circle belong to a
     //                 selection.
     // @param : First point, lower left vertice
