@@ -1,0 +1,15 @@
+CXX=g++ -std=c++11
+
+drawApplication: Application.o Command/DrawController.o
+	$(CXX) -o  drawApplication Application.o Command/DrawController.o
+
+Application.o: Application.cpp Command/DrawController.h
+	$(CXX) -c Application.cpp
+
+DrawController.o: Command/DrawController.cpp Command/DrawController.h
+	$(CXX) -c Command/DrawController.cpp
+
+
+#in order to clean old .o
+clean:
+	rm -rf *.o
