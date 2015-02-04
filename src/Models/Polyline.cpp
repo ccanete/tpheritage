@@ -111,6 +111,7 @@ Polyline::Polyline ( string name, vector<Point> &v ) : Figure(name), myVector(v)
 // Algorithme :
 //
 {
+    cout << *this;
 #ifdef MAP
     cout << "Appel au constructeur de <Polyline>" << endl;
 #endif

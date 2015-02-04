@@ -90,6 +90,8 @@ private:
     string clear           ();
     */
 
+    int createSelection ( char * params );
+
     int saveFigures (char * params);
 
 private:

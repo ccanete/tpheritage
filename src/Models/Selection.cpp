@@ -68,6 +68,7 @@ Selection::Selection ( string n, Point a, Point b ) : name(n), pointA(a), pointB
 // Algorithme :
 //
 {
+    cout << *this;
 #ifdef MAP
     cout << "Appel au constructeur de <Selection>" << endl;
 #endif

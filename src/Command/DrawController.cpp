@@ -89,7 +89,7 @@ int DrawController::ExecuteCommand ( string commandInput )
 	/*----------COMMAND SELECTION----------*/
 	else if (!strcmp(command, "S"))
 	{
-		//return createSelection(params);
+		return createSelection(params);
 	}
 
 	/*----------COMMAND DELETE----------*/
@@ -156,7 +156,8 @@ int DrawController::ExecuteCommand ( string commandInput )
 int DrawController::addFigure ( char cmd , char * params)
 {
 	char * firstEntry, * secondEntry, * thirdEntry, * fourthEntry, * fifthEntry;
-	long coordX1, coordX2, coordY1, coordY2, radius;
+	signed long coordX1, coordX2, coordY1, coordY2;
+	long radius;
 
 
 	if (cmd == 'C')
@@ -192,8 +193,9 @@ int DrawController::addFigure ( char cmd , char * params)
 			//commandsList.push();
 
 			// Circle creation method
-			Figure * myFigure = new Circle(firstEntry, coordX1, coordY1, radius);
-			figuresList.insert ( std::pair<char *,Figure *>(firstEntry, myFigure) );
+			
+			//Figure * myFigure = new Circle(firstEntry, coordX1, coordY1, radius);
+			//figuresList.insert ( std::pair<char *,Figure *>(firstEntry, myFigure) );
 			//figuresList.find(firstEntry)->second->ToString();
 		}
 		return 0;
@@ -231,7 +233,6 @@ int DrawController::addFigure ( char cmd , char * params)
 			// Rectangle creation method
 			Rectangle test = Rectangle(firstEntry, Point(coordX1, coordY1), Point(coordX2, coordY2));
 			////test.ToString();
-			cout << test;
 		}
 		return 0;
 	}
@@ -268,7 +269,6 @@ int DrawController::addFigure ( char cmd , char * params)
 			// Line creation method
 			Line test = Line(firstEntry, Point(coordX1, coordY1), Point(coordX2, coordY2));
 			////test.ToString();
-			cout << test;
 		}
 		return 0;
 	}
@@ -305,7 +305,6 @@ int DrawController::addFigure ( char cmd , char * params)
 
 		Polyline test = Polyline(firstEntry, myVector);
 		//test.ToString();
-		cout << test;
 		myVector.clear();
 		return 0;
 	}
@@ -323,16 +322,19 @@ int DrawController::createSelection( char * params )
 	{
 		cout << "ERR\r\n";
 		cout << "# Invalide name.\r\n";
+		return -1;
 	}
 	else if (secondEntry == NULL || thirdEntry == NULL)
 	{
 		cout << "ERR\r\n";
 		cout << "# Invalide first point.\r\n";
+		return -1;
 	}
 	else if ( fourthEntry == NULL || fifthEntry == NULL)
 	{
 		cout << "ERR\r\n";
 		cout << "# Invalide second point.\r\n";
+		return -1;
 	}
 	else
 	{
@@ -344,9 +346,8 @@ int DrawController::createSelection( char * params )
 		// Selection creation method
 		Selection test = Selection(firstEntry, Point(coordX1, coordY1), Point(coordX2, coordY2));
 		////test.ToString();
-		cout << test;
-	}
 	return 0;
+	}
 }
 
 int DrawController::saveFigures( char * params )

@@ -103,6 +103,7 @@ Rectangle::Rectangle ( string name, Point a, Point b ) : Figure(name), pointA(a)
 // Algorithme :
 //
 {
+    cout << *this;
 #ifdef MAP
     cout << "Appel au constructeur de <Rectangle>" << endl;
 #endif

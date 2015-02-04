@@ -82,6 +82,7 @@ ostream& operator << ( ostream &flux, const Line &l )
 //-------------------------------------------- Constructeurs - destructeur
 Line::Line ( string name, Point a, Point b ) : Figure(name), pointA(a), pointB(b)
 {
+    cout << *this;
 #ifdef MAP
     cout << "Appel au constructeur de <Line>" << endl;
 #endif

@@ -6,8 +6,8 @@
 *************************************************************************/
 
 //---------- Interface de la classe <Selection> (fichier Selection.h) ------
-#if ! defined ( RECTANGLE_H )
-#define RECTANGLE_H
+#if ! defined ( SELECTION_H )
+#define SELECTION_H
 
 //--------------------------------------------------- Interfaces utilisées
 #include "Figure.h"
@@ -33,15 +33,6 @@ public:
     //                 dy over y-axis.
     // @param : Value that will be incremented over x-axis
     // @param : Value that will be incremented over y-axis
-
-    bool IsInSelection(const Point &a, const Point &b);
-    // Mode d'emploi : Methode that verify if the rectangle belong to a
-    //                 selection.
-    // @param : First point, lower left vertice
-    // @param : Second point, upper right vertice 
-
-    string ToString();
-    // Mode d'emploi : Methode that return the string used to create it.
 
 //------------------------------------------------- Surcharge d'opérateurs
     friend ostream& operator << ( ostream &flux, const Selection &r);
@@ -83,4 +74,4 @@ private:
 
 //----------------------------------------- Types dépendants de <Selection>
 
-#endif // RECTANGLE_H
+#endif // SELECTION_H
