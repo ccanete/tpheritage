@@ -11,7 +11,7 @@
 
 //--------------------------------------------------- Interfaces utilisées
 #include <map>
-#include <queue>
+#include <stack>
 #include <string>
 
 #include "Command.h"
@@ -25,6 +25,8 @@
 #include "../Models/Rectangle.h"
 #include "../Models/Line.h"
 #include "../Models/Selection.h"
+#include "Command.h"
+#include "MoveCommand.h"
 
 //------------------------------------------------------------- Constantes 
 
@@ -96,7 +98,13 @@ private:
 
     int deleteFigures ( char * params );
 
+    int move ( char * params );
+
     int list ();
+
+    int undo ();
+
+    int redo ();
 
     int saveFigures ( char * params );
 
@@ -104,8 +112,9 @@ private:
 //------------------------------------------------------- Attributs privés
     map <string, Figure *> mapFigure;
     map <string, Selection *> mapSelection;
-    //queue<Command> commandsList;
-    //vector<Command> commands;
+    stack<Command *> commandsListUndo;
+    stack<Command *> commandsListRedo;
+
 
 //---------------------------------------------------------- Classes amies
 

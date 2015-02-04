@@ -5,8 +5,13 @@ LNFLAGS =
 ARFLAGS =
 
 # Sources
+<<<<<<< Updated upstream
 MODELS_SRC = Figure.cpp Circle.cpp Point.cpp Line.cpp Polyline.cpp Rectangle.cpp Selection.cpp
 COMMAND_SRC = DrawController.cpp Command.cpp AddCommand.cpp RemoveCommand.cpp MoveCommand.cpp
+=======
+MODELS_SRC = Circle.cpp Figure.cpp Point.cpp Line.cpp Polyline.cpp Rectangle.cpp Selection.cpp
+COMMAND_SRC = DrawController.cpp Command.cpp RemoveCommand.cpp MoveCommand.cpp
+>>>>>>> Stashed changes
 APPLICATION_SRC = Application.cpp
 
 # Objects
@@ -19,15 +24,15 @@ APPLICATION_OBJECT = $(APPLICATION_SRC:%.cpp=build/%.o)
 
 # Rules
 ## Build Directory
-build: build/cmd-draw
+build: build/tp-heritage
 
 ### Binary build
-build/cmd-draw: $(APPLICATION_OBJECT) $(MODELS_OBJECTS) $(CONTROLLERS_OBJECTS)
-	$(CC) $(LNFLAGS) -o build/cmd-draw $(APPLICATION_OBJECT) $(MODELS_OBJECTS) $(CONTROLLERS_OBJECTS)
+build/tp-heritage: $(APPLICATION_OBJECT) $(MODELS_OBJECTS) $(CONTROLLERS_OBJECTS)
+	$(CC) $(LNFLAGS) -o build/tp-heritage $(APPLICATION_OBJECT) $(MODELS_OBJECTS) $(CONTROLLERS_OBJECTS)
 
 ## Run
-run: build/cmd-draw
-	build/cmd-draw
+run: build/tp-heritage
+	build/tp-heritage
 
 
 ## Cleaner

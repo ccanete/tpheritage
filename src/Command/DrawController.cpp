@@ -100,7 +100,7 @@ int DrawController::ExecuteCommand ( string commandInput )
 	/*----------COMMAND MOVE----------*/
 	else if (!strcmp(command,"MOVE"))
 	{
-		//return move(params);
+		return move(params);
 	}
 
 	/*----------COMMAND LIST----------*/
@@ -112,13 +112,13 @@ int DrawController::ExecuteCommand ( string commandInput )
 	/*----------COMMAND UNDO----------*/
 	else if (!strcmp(command,"UNDO"))
 	{
-		//return undo();
+		return undo();
 	}
 	
 	/*----------COMMAND REDO----------*/
 	else if (!strcmp(command,"REDO"))
 	{
-		//return redo();
+		return redo();
 	}
 	
 	/*----------COMMAND LOAD----------*/
@@ -186,9 +186,9 @@ int DrawController::addFigure( char cmd , char * params)
 		}
 		else
 		{
-			coordX1 = strtol(secondEntry,NULL,10);
-			coordY1 = strtol(thirdEntry,NULL,10);
-			radius = strtol(fourthEntry,NULL,10);
+			coordX1 = strtol(secondEntry, NULL, 10);
+			coordY1 = strtol(thirdEntry, NULL, 10);
+			radius = strtol(fourthEntry, NULL, 10);
 
 			// Figure creation method
 			
@@ -222,10 +222,10 @@ int DrawController::addFigure( char cmd , char * params)
 		}
 		else
 		{
-			coordX1 = strtol(secondEntry,NULL,10);
-			coordY1 = strtol(thirdEntry,NULL,10);
-			coordX2 = strtol(fourthEntry,NULL,10);
-			coordY2 = strtol(fifthEntry,NULL,10);
+			coordX1 = strtol(secondEntry, NULL, 10);
+			coordY1 = strtol(thirdEntry, NULL, 10);
+			coordX2 = strtol(fourthEntry, NULL, 10);
+			coordY2 = strtol(fifthEntry, NULL, 10);
 
 			// Figure creation method
 			
@@ -259,12 +259,12 @@ int DrawController::addFigure( char cmd , char * params)
 		}
 		else
 		{
-			coordX1 = strtol(secondEntry,NULL,10);
-			coordY1 = strtol(thirdEntry,NULL,10);
-			coordX2 = strtol(fourthEntry,NULL,10);
-			coordY2 = strtol(fifthEntry,NULL,10);
 
 			// Figure creation method
+			coordX1 = strtol(secondEntry, NULL, 10);
+			coordY1 = strtol(thirdEntry, NULL, 10);
+			coordX2 = strtol(fourthEntry, NULL, 10);
+			coordY2 = strtol(fifthEntry, NULL, 10);
 			
 			AddCommand newFig (&mapFigure, 'L', cleanParams);
 			newFig.Do();
@@ -291,7 +291,7 @@ int DrawController::addFigure( char cmd , char * params)
 			{
 				break;
 			}
-			myVector.push_back(Point(strtol(secondEntry,NULL,10), strtol(thirdEntry,NULL,10)));
+			myVector.push_back(Point(strtol(secondEntry, NULL, 10), strtol(thirdEntry, NULL, 10)));
 			i++;
 		}
 
@@ -339,10 +339,10 @@ int DrawController::createSelection( char * params )
 	}
 	else
 	{
-		signed long coordX1 = strtol(secondEntry,NULL,10);
-		signed long coordY1 = strtol(thirdEntry,NULL,10);
-		signed long coordX2 = strtol(fourthEntry,NULL,10);
-		signed long coordY2 = strtol(fifthEntry,NULL,10);
+		signed long coordX1 = strtol(secondEntry, NULL, 10);
+		signed long coordY1 = strtol(thirdEntry, NULL, 10);
+		signed long coordX2 = strtol(fourthEntry, NULL, 10);
+		signed long coordY2 = strtol(fifthEntry, NULL, 10);
 
 		// Selection creation method
 		//Selection test = Selection(firstEntry, Point(coordX1, coordY1), Point(coordX2, coordY2), mapFigure);
@@ -419,7 +419,35 @@ int DrawController::deleteFigures( char * params )
     		itFig->second
     	}
     }*/
-    return 0;
+    return ZERO;
+}
+
+int DrawController::move( char * params )
+{
+	char * firstEntry = strtok(params, " ");
+	if ( mapFigure.find(firstEntry)->second == mapFigure.end()->second )
+	{
+		cout << "ERR\r\n";
+    	cout << "# " << firstEntry << " doesn't exist\r\n";
+    	return -ONE;
+	}
+	Figure * figure = mapFigure.find(firstEntry)->second;
+	char * secondEntry = strtok(NULL, " "); 
+	char * thirdEntry = strtok(NULL, " ");
+	signed long coordX = strtol(secondEntry, NULL, 10);
+	signed long coordY = strtol(thirdEntry, NULL, 10);
+	MoveCommand * mvCmd = new MoveCommand(figure, coordX, coordY);
+	mvCmd->Do();
+		cout << "OK\r\n";
+    	cout << "# The object " << firstEntry << " has been moved by " 
+    		 << coordX << " over the x-axis and " << coordY
+			 << " over the y-axis.\r\n";
+	if (commandsListUndo.size() == MAXUNDO)
+	{
+		commandsListUndo.pop();
+	}
+	commandsListUndo.push(mvCmd);
+	return ZERO;
 }
 
 int DrawController::list()
@@ -428,7 +456,38 @@ int DrawController::list()
 	{
 		cout << it->second->ToString();	
 	}
-	return 0;
+	return ZERO;
+}
+
+int DrawController::undo()
+{
+	cout << "OK\r\n";
+	if (commandsListUndo.empty())
+	{
+		cout << "# No UNDO avaible.\r\n";
+		return -ONE;
+	}
+	commandsListUndo.top()->Undo();
+	commandsListRedo.push(commandsListUndo.top());
+	commandsListUndo.pop();
+	cout << "OK\r\n";
+    
+	return ZERO;
+}
+
+int DrawController::redo()
+{
+	cout << "OK\r\n";
+	if (commandsListRedo.empty())
+	{
+		cout << "# No REDO avaible.\r\n";
+		return -ONE;
+	}
+	commandsListRedo.top()->Do();
+	commandsListUndo.push(commandsListRedo.top());
+	commandsListRedo.pop();
+	
+    return ZERO;
 }
 
 int DrawController::saveFigures( char * params )

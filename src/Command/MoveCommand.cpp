@@ -20,7 +20,7 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
-MoveCommand::MoveCommand (Figure* figure, long dx, long dy) : figure_(figure), dx_(dx), dy_(dy)
+MoveCommand::MoveCommand (Figure* figure, signed long dx, signed long dy) : figure_(figure), dx_(dx), dy_(dy)
 {
 	#ifdef MAP
     	cout << "Appel au constructeur de <MoveCommand>" << endl;
@@ -33,7 +33,7 @@ bool MoveCommand::Do ()
 	    cout << "Move object" << endl;
 	#endif
 
-	//figure_->Move(dx_, dy_);
+	figure_->Move(dx_, dy_);
 	return true;
 
 } //----- Fin de MoveCommand
@@ -44,7 +44,7 @@ bool MoveCommand::Undo ()
 	    cout << "Unmove object" << endl;
 	#endif
 
-	//figure_->Move(-dx_, -dy_);
+	figure_->Move(-dx_, -dy_);
 	return true;
 
 } //----- Fin de MoveCommand
