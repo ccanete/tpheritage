@@ -36,7 +36,7 @@ class AddCommand : public Command
 
 public:
 
-    AddCommand (char objType, char * params);
+    AddCommand (map <string, Figure *> * mapFigure, char objType, char * params);
     // Mode d'emploi :
     //
     // Contrat :
@@ -72,6 +72,9 @@ private:
     char * myParams;
     string name;
     Figure * newFigure;
+
+    map <string, Figure *> * myMapFigure;
+
 
 //----------------------------------------- Objets atributs
 

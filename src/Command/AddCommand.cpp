@@ -29,7 +29,7 @@ using namespace std;
 //----------------------------------------------------- Méthodes publiques
 
 //-------------------------------------------- Constructeurs - destructeur
-AddCommand::AddCommand (char objType, char * params)
+AddCommand::AddCommand (map <string, Figure *> * mapFigure, char objType, char * params)
 // Algorithme :
 //
 {
@@ -38,6 +38,7 @@ AddCommand::AddCommand (char objType, char * params)
 	#endif
 	myObjType = objType;
 	myParams = params;
+	myMapFigure = mapFigure;
 
 
 	if (myObjType == 'C')
@@ -56,27 +57,27 @@ AddCommand::AddCommand (char objType, char * params)
 		// Circle creation method
 
 		Circle * myCircle = new Circle(name, coordX1, coordY1, radius);
-		newFigure = myCircle;	
+		newFigure = myCircle;
 	}
-	/*
 	if (myObjType == 'R')
 	{
-		firstEntry = strtok(params, " ");
+		name = strtok(params, " ");
+
 		secondEntry = strtok(NULL, " "); 
 		thirdEntry = strtok(NULL, " ");
 		fourthEntry = strtok(NULL, " ");
 		fifthEntry = strtok(NULL, " ");
 
-			coordX1 = strtol(secondEntry,NULL,10);
-			coordY1 = strtol(thirdEntry,NULL,10);
-			coordX2 = strtol(fourthEntry,NULL,10);
-			coordY2 = strtol(fifthEntry,NULL,10);
+		coordX1 = strtol(secondEntry,NULL,10);
+		coordY1 = strtol(thirdEntry,NULL,10);
+		coordX2 = strtol(fourthEntry,NULL,10);
+		coordY2 = strtol(fifthEntry,NULL,10);
 
-			// Rectangle creation method
-			Rectangle test = Rectangle(firstEntry, Point(coordX1, coordY1), Point(coordX2, coordY2));
-			////test.ToString();
-
+		// Rectangle creation method
+		Rectangle * myRectangle = new Rectangle(name, Point(coordX1, coordY1), Point(coordX2, coordY2));
+		newFigure = myRectangle;
 	}
+	/*
 	if (myObjType == 'L')
 	{
 		firstEntry = strtok(params, " ");
@@ -134,9 +135,7 @@ bool AddCommand::Do ()
 	    cout << "Create object" << endl;
 	#endif
 
-	//    Circle ( string n, signed long x, signed long y, int r );
-
-	//Circle myCircle ();
+	myMapFigure->insert ( std::pair<string,Figure *>(name,newFigure) );
 
 	return true;
 

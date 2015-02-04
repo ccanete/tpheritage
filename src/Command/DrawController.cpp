@@ -46,19 +46,6 @@ DrawController::~DrawController ( )
 
 //-------------------------------------------------- Methodes
 
-int DrawController::AddFigureToList (string name, Figure * figureAdded)
-{
-	mapFigure.insert ( std::pair<string,Figure *>(name,figureAdded) );
-	return 0;
-
-}
-
-
-int DrawController::RemoveFigureFromList (string name)
-{
-	return 0;
-}
-
 
 int DrawController::ExecuteCommand ( string commandInput )
 //Algorithme :
@@ -205,7 +192,7 @@ int DrawController::addFigure( char cmd , char * params)
 
 			// Circle creation method
 			
-			AddCommand newCircle ('C', cleanParams);
+			AddCommand newCircle (&mapFigure, 'C', cleanParams);
 			newCircle.Do();
 		}
 		return ZERO;
