@@ -53,6 +53,10 @@ public:
     // Contrat :
     //
 
+//------------------------------------------------- Surcharge d'opérateurs
+    bool operator < ( const Figure &f );
+    // Mode d'emploi : Overcharged of operator <<, to post a polyline.
+
 //-------------------------------------------- Constructeurs - destructeur
     Figure ( const Figure & unFigure );
     // Mode d'emploi (constructeur de copie) :

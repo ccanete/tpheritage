@@ -31,7 +31,7 @@ DrawController::DrawController ( )
 #ifdef MAP
     cout << "Appel au constructeur de <DrawController>" << endl;
 #endif
-        //map <char *,Figure *> figuresList;
+        //map <char *,Figure *> mapFigure;
 
 } //----- Fin de DrawController
 
@@ -95,7 +95,7 @@ int DrawController::ExecuteCommand ( string commandInput )
 	/*----------COMMAND DELETE----------*/
 	else if (!strcmp(command,"DELETE"))
 	{
-		//return delete(params);
+		return deleteFigures(params);
 	}
 
 	/*----------COMMAND MOVE----------*/
@@ -107,7 +107,7 @@ int DrawController::ExecuteCommand ( string commandInput )
 	/*----------COMMAND LIST----------*/
 	else if (!strcmp(command,"LIST"))
 	{
-		//return list();
+		return list();
 	}
 
 	/*----------COMMAND UNDO----------*/
@@ -142,18 +142,18 @@ int DrawController::ExecuteCommand ( string commandInput )
 	/*----------COMMAND EXIT----------*/
 	else if (!strcmp(command,"EXIT"))
 	{
-		return 1;
+		return ONE;
 	}
 
 	else
 	{
-		return 2;
+		return TWO;
 	}
 
 } //----- Fin de Méthode
 
 
-int DrawController::addFigure ( char cmd , char * params)
+int DrawController::addFigure( char cmd , char * params)
 {
 	char * firstEntry, * secondEntry, * thirdEntry, * fourthEntry, * fifthEntry;
 	signed long coordX1, coordX2, coordY1, coordY2;
@@ -194,11 +194,11 @@ int DrawController::addFigure ( char cmd , char * params)
 
 			// Circle creation method
 			
-			//Figure * myFigure = new Circle(firstEntry, coordX1, coordY1, radius);
-			//figuresList.insert ( std::pair<char *,Figure *>(firstEntry, myFigure) );
-			//figuresList.find(firstEntry)->second->ToString();
+			Figure * myFigure = new Circle(firstEntry, coordX1, coordY1, radius);
+			mapFigure.insert ( std::pair<char *,Figure *>(firstEntry, myFigure) );
+			mapFigure.find(firstEntry)->second->ToString();
 		}
-		return 0;
+		return ZERO;
 	}
 	if (cmd == 'R')
 	{
@@ -234,7 +234,7 @@ int DrawController::addFigure ( char cmd , char * params)
 			Rectangle test = Rectangle(firstEntry, Point(coordX1, coordY1), Point(coordX2, coordY2));
 			////test.ToString();
 		}
-		return 0;
+		return ZERO;
 	}
 	if (cmd == 'L')
 	{
@@ -270,7 +270,7 @@ int DrawController::addFigure ( char cmd , char * params)
 			Line test = Line(firstEntry, Point(coordX1, coordY1), Point(coordX2, coordY2));
 			////test.ToString();
 		}
-		return 0;
+		return ZERO;
 	}
 	if (cmd == 'P')
 	{
@@ -281,7 +281,7 @@ int DrawController::addFigure ( char cmd , char * params)
 		{
 			cout << "ERR\r\n";
 			cout << "# Invalide name.\r\n";
-			return 1;
+			return ONE;
 		}
 
 		while (ONE)
@@ -300,13 +300,13 @@ int DrawController::addFigure ( char cmd , char * params)
 		{
 			cout << "ERR\r\n";
 			cout << "# Invalide " << i + ONE << "th point.\r\n";
-			return 1;
+			return ONE;
 		}
 
 		Polyline test = Polyline(firstEntry, myVector);
 		//test.ToString();
 		myVector.clear();
-		return 0;
+		return ZERO;
 	}
 }
 
@@ -322,19 +322,19 @@ int DrawController::createSelection( char * params )
 	{
 		cout << "ERR\r\n";
 		cout << "# Invalide name.\r\n";
-		return -1;
+		return -ONE;
 	}
 	else if (secondEntry == NULL || thirdEntry == NULL)
 	{
 		cout << "ERR\r\n";
 		cout << "# Invalide first point.\r\n";
-		return -1;
+		return -ONE;
 	}
 	else if ( fourthEntry == NULL || fifthEntry == NULL)
 	{
 		cout << "ERR\r\n";
 		cout << "# Invalide second point.\r\n";
-		return -1;
+		return -ONE;
 	}
 	else
 	{
@@ -344,10 +344,90 @@ int DrawController::createSelection( char * params )
 		signed long coordY2 = strtol(fifthEntry,NULL,10);
 
 		// Selection creation method
-		Selection test = Selection(firstEntry, Point(coordX1, coordY1), Point(coordX2, coordY2));
+		Selection test = Selection(firstEntry, Point(coordX1, coordY1), Point(coordX2, coordY2), mapFigure);
 		////test.ToString();
-	return 0;
+	return ZERO;
 	}
+}
+
+int DrawController::deleteFigures( char * params )
+{
+	// SEARCHING DOUBLES 
+	vector<string> v;
+	char * firstEntry = strtok(params, " ");
+	if (firstEntry == NULL)
+	{
+		cout << "ERR\r\n";
+    	cout << "# No element\r\n";
+    	return -ONE;
+	}
+	else
+	{
+		v.push_back(firstEntry);
+	}
+	int i = 0;
+	while ( (firstEntry = strtok(NULL, " ")) != NULL )
+	{
+		cout << "Vecteur pos" << i << "\r\n";
+		v.push_back(firstEntry);
+		i++;
+	}
+	sort( v.begin(), v.end() );
+ 	vector<string>::iterator it;
+
+	if ( i > 0)
+	{
+		i = 0;
+		for (it=v.begin(); it != v.end() - ONE; it++)
+	    {
+	    	cout << "Recherche doublons\r\n";
+	    	i++;
+	    	if (*it == *(it+ONE))
+	    	{
+	    		cout << "ERR\r\n";
+	    		cout << "# " << i << "th element is already deleted\r\n";
+	    		return -ONE;
+	    	} 
+	    }
+	}
+	i = 0;
+	for (it=v.begin(); it != v.end(); it++)
+    {
+    	i++;
+	    cout << "Recherche dans les maps\r\n";
+    	if ( mapSelection.find(*it) == mapSelection.end() && mapFigure.find(*it) == mapFigure.end() )
+    	{
+    		cout << "ERR\r\n";
+    		cout << "# " << i << "th element doesn't exist\r\n";
+    		return -ONE;
+    	}
+    }
+
+    // DELETE ELEMENTS 
+    map<string, Selection *>::iterator itSel;
+    map<string, Figure *>::iterator itFig;
+    /*for (it=v.begin(); it != v.end() - ONE; it++)
+    {
+    	
+    	if ( (itSel = mapSelection.find(*it)) != mapSelection.end() )
+    	{
+    		itSel->second->GetFigureVector();
+    	}
+    	else if ( (itFig = mapFigure.find(*it)) != mapFigure.end() )
+    	{
+    		itFig->second
+    	}
+    }*/
+    return 0;
+}
+
+int DrawController::list()
+{
+	for (map<string,Figure *>::iterator it = mapFigure.begin(); it != mapFigure.end(); it++)
+	{
+		cout << it->second->ToString();	
+	}
+	return 0;
 }
 
 int DrawController::saveFigures( char * params )
@@ -358,7 +438,7 @@ int DrawController::saveFigures( char * params )
 	{
 		cout << "ERR\r\n";
 		cout << "# Invalide file name.\r\n";
-		return -1;
+		return -ONE;
 	}
 	else
 	{
@@ -367,7 +447,7 @@ int DrawController::saveFigures( char * params )
 
         if(fichier)
         {
- 			for (map<string,Figure *>::iterator it = figuresList.begin(); it != figuresList.end(); it++)
+ 			for (map<string,Figure *>::iterator it = mapFigure.begin(); it != mapFigure.end(); it++)
     		{
     			fichier << it->second->ToString();
     		}
@@ -376,10 +456,10 @@ int DrawController::saveFigures( char * params )
         else
         {
 			cerr << "# File cannot be opened !" << endl;
-			return -1;
+			return -ONE;
         }
 		cout << "OK\r\n";
 		cout << "# The file " << firstEntry << " has been saved.\r\n";
-		return 0;
+		return ZERO;
 	}
 }

@@ -92,11 +92,16 @@ private:
 
     int createSelection ( char * params );
 
-    int saveFigures (char * params);
+    int deleteFigures ( char * params );
+
+    int list ();
+
+    int saveFigures ( char * params );
 
 private:
 //------------------------------------------------------- Attributs privés
-    map <string,Figure *> figuresList;
+    map <string, Figure *> mapFigure;
+    map <string, Selection *> mapSelection;
     //queue<Command> commandsList;
     //vector<Command> commands;
 

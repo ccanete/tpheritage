@@ -64,11 +64,23 @@ ostream& operator << ( ostream &flux, const Selection &r )
 } //----- Fin de operator <<
 
 //-------------------------------------------- Constructeurs - destructeur
-Selection::Selection ( string n, Point a, Point b ) : name(n), pointA(a), pointB(b)
+Selection::Selection ( string n, Point a, Point b, map<string,Figure *> &myMap ) : name(n), pointA(a), pointB(b)
 // Algorithme :
 //
 {
+    map<string,Figure *>::iterator it;
     cout << *this;
+    for (it = myMap.begin(); it != myMap.end(); it++)
+    {
+        if (it->second->IsInSelection(a, b))
+        {
+            listFigure.push_back(it->second);
+            listFigure.sort();
+        }       
+    }
+    for (std::list<Figure *>::iterator it=listFigure.begin() ; it != listFigure.end(); ++it)
+    cout << "# " << (*it)->ToString();
+
 #ifdef MAP
     cout << "Appel au constructeur de <Selection>" << endl;
 #endif

@@ -10,6 +10,9 @@
 #define SELECTION_H
 
 //--------------------------------------------------- Interfaces utilisées
+#include <list>
+#include <map>
+using namespace std;
 #include "Figure.h"
 #include "Point.h"
 //------------------------------------------------------------- Constantes 
@@ -39,7 +42,7 @@ public:
     // Mode d'emploi : Overcharged of operator <<, to post a rectangle.
 
 //-------------------------------------------- Constructeurs - destructeur
-    Selection ( string name, Point a, Point b );
+    Selection ( string name, Point a, Point b, map<string,Figure *> &myMap );
     // Mode d'emploi : Selection's constructor.
     // @param : Selection's name
     // @param : First rectangle's point, lower left vertice
@@ -64,6 +67,7 @@ private:
     string name;
     Point pointA;
     Point pointB;
+    list<Figure *> listFigure;
 //---------------------------------------------------------- Classes amies
 
 //-------------------------------------------------------- Classes privées

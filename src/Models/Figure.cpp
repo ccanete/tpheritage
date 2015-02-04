@@ -42,12 +42,13 @@ string Figure::GetName()
 //----- Fin de Méthode
 
 //------------------------------------------------- Surcharge d'opérateurs
-/*Figure & Figure::operator = ( const Figure & unFigure )
+bool Figure::operator < ( const Figure &f )
 // Algorithme :
 //
 {
+	return name > f.name;
 } //----- Fin de operator =
-*/
+
 
 //-------------------------------------------- Constructeurs - destructeur
 Figure::Figure ( const Figure & unFigure )
