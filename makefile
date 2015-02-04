@@ -5,13 +5,8 @@ LNFLAGS =
 ARFLAGS =
 
 # Sources
-<<<<<<< Updated upstream
 MODELS_SRC = Figure.cpp Circle.cpp Point.cpp Line.cpp Polyline.cpp Rectangle.cpp Selection.cpp
 COMMAND_SRC = DrawController.cpp Command.cpp AddCommand.cpp RemoveCommand.cpp MoveCommand.cpp
-=======
-MODELS_SRC = Circle.cpp Figure.cpp Point.cpp Line.cpp Polyline.cpp Rectangle.cpp Selection.cpp
-COMMAND_SRC = DrawController.cpp Command.cpp RemoveCommand.cpp MoveCommand.cpp
->>>>>>> Stashed changes
 APPLICATION_SRC = Application.cpp
 
 # Objects

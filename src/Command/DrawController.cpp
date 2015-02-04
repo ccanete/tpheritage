@@ -157,7 +157,7 @@ int DrawController::addFigure( char cmd , char * params)
 	char * firstEntry, * secondEntry, * thirdEntry, * fourthEntry, * fifthEntry;
 	signed long coordX1, coordX2, coordY1, coordY2;
 	long radius;
-	char * cleanParams = new char[strlen(params)];
+	char cleanParams [strlen(params)];
 	strcpy(cleanParams,params);
 
 
@@ -173,16 +173,19 @@ int DrawController::addFigure( char cmd , char * params)
 		{
 			cout << "ERR\r\n";
 			cout << "# Invalide name.\r\n";
+			return -ONE;
 		}
 		else if (secondEntry == NULL || thirdEntry == NULL)
 		{
 			cout << "ERR\r\n";
 			cout << "# Invalide center.\r\n";
+			return -ONE;
 		}
 		else if ( fourthEntry == NULL)
 		{
 			cout << "ERR\r\n";
 			cout << "# Invalide radius.\r\n";
+			return -ONE;
 		}
 		else
 		{
