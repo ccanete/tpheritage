@@ -31,7 +31,6 @@ DrawController::DrawController ( )
 #ifdef MAP
     cout << "Appel au constructeur de <DrawController>" << endl;
 #endif
-        //map <char *,Figure *> mapFigure;
 
 } //----- Fin de DrawController
 
@@ -46,6 +45,19 @@ DrawController::~DrawController ( )
 } //----- Fin de ~DrawController
 
 //-------------------------------------------------- Methodes
+
+int DrawController::AddFigureToList (string name, Figure * figureAdded)
+{
+	mapFigure.insert ( std::pair<string,Figure *>(name,figureAdded) );
+	return 0;
+
+}
+
+
+int DrawController::RemoveFigureFromList (string name)
+{
+	return 0;
+}
 
 
 int DrawController::ExecuteCommand ( string commandInput )
@@ -158,6 +170,8 @@ int DrawController::addFigure( char cmd , char * params)
 	char * firstEntry, * secondEntry, * thirdEntry, * fourthEntry, * fifthEntry;
 	signed long coordX1, coordX2, coordY1, coordY2;
 	long radius;
+	char * cleanParams = new char[strlen(params)];
+	strcpy(cleanParams,params);
 
 
 	if (cmd == 'C')
@@ -189,14 +203,10 @@ int DrawController::addFigure( char cmd , char * params)
 			coordY1 = strtol(thirdEntry,NULL,10);
 			radius = strtol(fourthEntry,NULL,10);
 
-			//AddCommand * myCommand;
-			//commandsList.push();
-
 			// Circle creation method
 			
-			Figure * myFigure = new Circle(firstEntry, coordX1, coordY1, radius);
-			mapFigure.insert ( std::pair<char *,Figure *>(firstEntry, myFigure) );
-			mapFigure.find(firstEntry)->second->ToString();
+			AddCommand newCircle ('C', cleanParams);
+			newCircle.Do();
 		}
 		return ZERO;
 	}
@@ -344,7 +354,7 @@ int DrawController::createSelection( char * params )
 		signed long coordY2 = strtol(fifthEntry,NULL,10);
 
 		// Selection creation method
-		Selection test = Selection(firstEntry, Point(coordX1, coordY1), Point(coordX2, coordY2), mapFigure);
+		//Selection test = Selection(firstEntry, Point(coordX1, coordY1), Point(coordX2, coordY2), mapFigure);
 		////test.ToString();
 	return ZERO;
 	}

@@ -9,6 +9,16 @@
 #if ! defined ( Command_H )
 #define Command_H
 
+#include <iostream>
+    
+#include "../Models/Figure.h"
+#include "../Models/Polyline.h"
+#include "../Models/Point.h"
+#include "../Models/Circle.h"
+#include "../Models/Rectangle.h"
+#include "../Models/Line.h"
+#include "../Models/Selection.h"
+
 //--------------------------------------------------- Interfaces utilisées
 
 //------------------------------------------------------------- Constantes 

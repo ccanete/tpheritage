@@ -1,31 +1,37 @@
-#echo : "Command make is in execution"
-# List variables
-COMP = g++
-CFLAGS = -ansi -v
-ECHO = echo
-OBJ1 = $(SRC:.cpp=.o)
-OBJ2 = $(COM:.cpp=.o)
-SRC = $(wildcard Models/*.cpp)
-COM = $(wildcard Command/*.cpp)
-EXE = Application
-EXEC = main
+# Compilation binaries
+CC = g++
+CFLAGS = -DDEBUG -g -std=c++11 #-stdlib=libc++
+LNFLAGS =
+ARFLAGS =
 
-all: $(EXE)
-# Rule to the main
-$(EXE): $(OBJ1) $(OBJ2) $(EXE).cpp
-	@$(ECHO) "Compliation of <$(EXE)>"
-	$(COMP) $(CFLAGS) -o $(EXEC) $(EXE).cpp $(OBJ1) $(OBJ2)
-# Pattern Rule 
-%.d: %.cpp
-	@set -e; rm -f $@; \
-	$(COMP) -M $(CFLAGS) $< > $@.$$$$; \
-	sed 's,\($*\)\.o[ :]*,\1.o $@ : ,g' < $@.$$$$ > $@; \
-	rm -f $@.$$$$
-# Include
-include $(SRC:.cpp=.d)
-include $(COM:.cpp=.d)
-# Rule to clean
-.PHONY: clean
+# Sources
+MODELS_SRC = Circle.cpp Figure.cpp Point.cpp Line.cpp Polyline.cpp Rectangle.cpp
+COMMAND_SRC = DrawController.cpp Command.cpp AddCommand.cpp RemoveCommand.cpp MoveCommand.cpp
+APPLICATION_SRC = Application.cpp
 
+# Objects
+MODELS_OBJECTS = $(MODELS_SRC:%.cpp=build/models/%.o)
+CONTROLLERS_OBJECTS = $(COMMAND_SRC:%.cpp=build/controllers/%.o)
+APPLICATION_OBJECT = $(APPLICATION_SRC:%.cpp=build/%.o)
+
+# Rules
+## Build Directory
+build: build/tpheritage
+
+### Binary build
+build/tpheritage: $(APPLICATION_OBJECT) $(MODELS_OBJECTS) $(CONTROLLERS_OBJECTS)
+	$(CC) $(LNFLAGS) -o build/tpheritage $(APPLICATION_OBJECT) $(MODELS_OBJECTS) $(CONTROLLERS_OBJECTS)
+
+## Run
+run: build/tpheritage
+	build/tpheritage
+
+## Cleaner
 clean:
-	rm -rf *.o Command/*.o Command/*.d Models/*.o Models/*.d $(EXEC) *.d
+	rm -r build
+
+# Patterns
+## C++ Compilation
+build/%.o: src/%.cpp
+	mkdir -p `dirname $@`
+	$(CC) -c $(CFLAGS) -o $@ $<

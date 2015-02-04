@@ -13,7 +13,10 @@
 #include <map>
 #include <queue>
 #include <string>
+
 #include "Command.h"
+#include "MoveCommand.h"
+#include "AddCommand.h"
 
 #include "../Models/Figure.h"
 #include "../Models/Polyline.h"
@@ -67,6 +70,18 @@ public:
     // Contrat :
     //
 
+    int AddFigureToList (string name, Figure * figureAdded);
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
+
+    int RemoveFigureFromList (string name);
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
+
 
 
 
@@ -76,19 +91,6 @@ public:
 private:
 //------------------------------------------------------- Méthodes privées
     int addFigure (char cmd , char * params);
-
-
-/*
-    string add             ( string cmd, string params );
-    string deleteFigure    ( char * params );
-    string move            ( char * params );
-    string load            ( char * params );
-    string save            ( char * params );
-    string list            ();
-    string undo            ();
-    string redo            ();
-    string clear           ();
-    */
 
     int createSelection ( char * params );
 

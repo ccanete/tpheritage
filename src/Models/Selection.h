@@ -12,7 +12,9 @@
 //--------------------------------------------------- Interfaces utilisées
 #include <list>
 #include <map>
+
 using namespace std;
+
 #include "Figure.h"
 #include "Point.h"
 //------------------------------------------------------------- Constantes 

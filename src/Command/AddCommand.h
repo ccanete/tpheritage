@@ -5,12 +5,19 @@
     copyright            : (C) ${year} par ${user}
 *************************************************************************/
 
-//---------- Interface de la classe <AddCommand> (fichier ${file_name}) ------
+//---------- Interface de la classe <AddCommand> (fichier AddCommand.h) ------
 #if ! defined ( AddCommand_H )
 #define AddCommand_H
 
 #include "Command.h"
 
+#include "../Models/Figure.h"
+#include "../Models/Polyline.h"
+#include "../Models/Point.h"
+#include "../Models/Circle.h"
+#include "../Models/Rectangle.h"
+#include "../Models/Line.h"
+#include "../Models/Selection.h"
 //--------------------------------------------------- Interfaces utilisées
 
 //------------------------------------------------------------- Constantes 
@@ -29,17 +36,23 @@ class AddCommand : public Command
 
 public:
 
-    AddCommand ();
+    AddCommand (char objType, char * params);
     // Mode d'emploi :
     //
     // Contrat :
     //
+
+    virtual bool Do();
+
+    virtual bool Undo();
 
     virtual ~AddCommand ( );
     // Mode d'emploi :
     //
     // Contrat :
     //
+
+
 
 //------------------------------------------------------------------ PRIVE 
 
@@ -55,6 +68,17 @@ protected:
 private:
 //------------------------------------------------------- Attributs privés
 
+    char myObjType;
+    char * myParams;
+    string name;
+    Figure * newFigure;
+
+//----------------------------------------- Objets atributs
+
+    char * firstEntry, * secondEntry, * thirdEntry, * fourthEntry, * fifthEntry;
+    signed long coordX1, coordX2, coordY1, coordY2;
+    long radius;
+
 //---------------------------------------------------------- Classes amies
 
 //-------------------------------------------------------- Classes privées
@@ -63,6 +87,5 @@ private:
 
 };
 
-//----------------------------------------- Types dépendants de <AddCommand>
 
 #endif // AddCommand_H

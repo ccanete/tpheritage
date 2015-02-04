@@ -10,6 +10,8 @@
 #define FIGURE_H
 
 //--------------------------------------------------- Interfaces utilisées
+#include <string>
+
 #include "Point.h"
 using namespace std;
 
