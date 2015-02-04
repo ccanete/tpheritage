@@ -5,7 +5,7 @@ LNFLAGS =
 ARFLAGS =
 
 # Sources
-MODELS_SRC = Circle.cpp Figure.cpp Point.cpp Line.cpp Polyline.cpp Rectangle.cpp
+MODELS_SRC = Circle.cpp Figure.cpp Point.cpp Line.cpp Polyline.cpp Rectangle.cpp Selection.cpp
 COMMAND_SRC = DrawController.cpp Command.cpp AddCommand.cpp RemoveCommand.cpp MoveCommand.cpp
 APPLICATION_SRC = Application.cpp
 
