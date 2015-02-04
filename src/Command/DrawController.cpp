@@ -385,7 +385,7 @@ int DrawController::deleteFigures( char * params )
 	    	if (*it == *(it+ONE))
 	    	{
 	    		cout << "ERR\r\n";
-	    		cout << "# " << i << "th element is already deleted\r\n";
+	    		cout << "# " << *it << " is repeated\r\n";
 	    		return -ONE;
 	    	} 
 	    }
@@ -398,7 +398,7 @@ int DrawController::deleteFigures( char * params )
     	if ( mapSelection.find(*it) == mapSelection.end() && mapFigure.find(*it) == mapFigure.end() )
     	{
     		cout << "ERR\r\n";
-    		cout << "# " << i << "th element doesn't exist\r\n";
+    		cout << "# " << *it << " doesn't exist\r\n";
     		return -ONE;
     	}
     }
