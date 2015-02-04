@@ -265,7 +265,6 @@ int DrawController::addFigure( char cmd , char * params)
 			coordY1 = strtol(thirdEntry, NULL, 10);
 			coordX2 = strtol(fourthEntry, NULL, 10);
 			coordY2 = strtol(fifthEntry, NULL, 10);
-			
 			AddCommand newFig (&mapFigure, 'L', cleanParams);
 			newFig.Do();
 		}
@@ -442,10 +441,6 @@ int DrawController::move( char * params )
     	cout << "# The object " << firstEntry << " has been moved by " 
     		 << coordX << " over the x-axis and " << coordY
 			 << " over the y-axis.\r\n";
-	if (commandsListUndo.size() == MAXUNDO)
-	{
-		commandsListUndo.pop();
-	}
 	commandsListUndo.push(mvCmd);
 	return ZERO;
 }
