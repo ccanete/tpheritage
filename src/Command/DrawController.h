@@ -21,6 +21,7 @@
 #include "../Models/Circle.h"
 #include "../Models/Rectangle.h"
 #include "../Models/Line.h"
+#include "../Models/Selection.h"
 
 //------------------------------------------------------------- Constantes 
 
@@ -89,12 +90,13 @@ private:
     string clear           ();
     */
 
+    int saveFigures (char * params);
+
 private:
 //------------------------------------------------------- Attributs privés
-    map <char *,Figure *> figuresList;
-    queue<Command> commandsList;
-    vector<Command> commands;
-    map <char *,Figure *> figuresList;
+    map <string,Figure *> figuresList;
+    //queue<Command> commandsList;
+    //vector<Command> commands;
 
 //---------------------------------------------------------- Classes amies
 

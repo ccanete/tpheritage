@@ -1,11 +1,11 @@
 /*************************************************************************
-                           Line  -  description
+                           Selection  -  description
                              -------------------
     début                : 21/01/2015
     copyright            : (C) 2015 par Accardo & Canete
 *************************************************************************/
 
-//---------- Réalisation de la classe <Line> (fichier Line.cpp) --
+//---------- Réalisation de la classe <Selection> (fichier Selection.cpp) --
 
 //---------------------------------------------------------------- INCLUDE
 
@@ -15,7 +15,7 @@
 using namespace std;
 
 //------------------------------------------------------ Include personnel
-#include "Line.h"
+#include "Selection.h"
 
 //------------------------------------------------------------- Constantes
 
@@ -28,72 +28,60 @@ using namespace std;
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
-void Line::Move(const signed long &dx, const signed long &dy)
-// 	Algorithme : Use of Move point's methode.
+// type Selection::Méthode ( liste de paramètres )
+// Algorithme :
+//
+//{
+//} //----- Fin de Méthode
+
+void Selection::Move(const signed long &dx, const signed long &dy)
+// 	Algorithme :
+//				
 	{
 	pointA.Move(dx, dy);
 	pointB.Move(dx, dy);
 	}
 //----- Fin de Méthode
 
-bool Line::IsInSelection(const Point &a, const Point &b) 
-// 	Algorithme : Use of IsInSelection point's methode.
-	{
-		if (pointA.IsInSelection(a, b) && pointB.IsInSelection(a, b))
-			return true;
-		else
-	    	return false;
-	}
-//----- Fin de Méthode
-
-string Line::ToString()
-// Algorithme : Use of a stringstream to create a string equals to
-//              input user's one.
-{   
-    stringstream sstm;
-    sstm << "L " << name << " " 
-    	 <<	pointA.GetX() << " " << pointA.GetY() 
-    	 << " " << pointB.GetX() << " " 
-    	 << pointB.GetY() << "\r\n";
-    string result = sstm.str();
-    return result;
-}
-//----- Fin de Méthode
-
 //------------------------------------------------- Surcharge d'opérateurs
-ostream& operator << ( ostream &flux, const Line &l )
+ostream& operator << ( ostream &flux, const Selection &r )
+// Algorithme :
+//
 {
     cout << "OK\r\n";
-    flux << "# Line ";
-    flux << l.name;
-    flux << " passing by (";
-    flux << l.pointA.GetX();
+    flux << "# Selection ";
+    flux << r.name;
+    flux << " formed by (";
+    flux << r.pointA.GetX();
     flux << ", ";
-    flux << l.pointA.GetY();
-    flux << ") and (";
-    flux << l.pointB.GetX();
+    flux << r.pointA.GetY();
+    flux << "), lower left vertice, and (";
+    flux << r.pointB.GetX();
     flux << ", ";
-    flux << l.pointB.GetY();
-    flux << ") has been created.\r\n";
+    flux << r.pointB.GetY();
+    flux << "), upper high vertice has been created.\r\n";
     return flux;
 } //----- Fin de operator <<
 
-
 //-------------------------------------------- Constructeurs - destructeur
-Line::Line ( string name, Point a, Point b ) : Figure(name), pointA(a), pointB(b)
+Selection::Selection ( string n, Point a, Point b ) : name(n), pointA(a), pointB(b)
+// Algorithme :
+//
 {
 #ifdef MAP
-    cout << "Appel au constructeur de <Line>" << endl;
+    cout << "Appel au constructeur de <Selection>" << endl;
 #endif
-} //----- Fin de Line
+} //----- Fin de Selection
 
 
-Line::~Line ( )
+Selection::~Selection ( )
+// Algorithme :
+//
 {
 #ifdef MAP
-    cout << "Appel au destructeur de <Line>" << endl;
+    cout << "Appel au destructeur de <Selection>" << endl;
 #endif
-} //----- Fin de ~Line
+} //----- Fin de ~Selection
 
 
 //------------------------------------------------------------------ PRIVE

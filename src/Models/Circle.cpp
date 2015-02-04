@@ -59,7 +59,6 @@ string Circle::ToString()
     stringstream sstm;
     sstm << "C " << name << " " << center.GetX() << " " << center.GetY() << " " << radius << "\r\n";
     string result = sstm.str();
-    cout << result;
     return result;
 }
 //----- Fin de Méthode
@@ -99,6 +98,7 @@ Circle::Circle ( string name, signed long x, signed long y, int r ) : Figure(nam
 //
 {
     radius = r;
+    cout << *this;
 #ifdef MAP
     cout << "Appel au constructeur de <Circle>" << endl;
 #endif

@@ -41,19 +41,17 @@ public:
     // Contrat :
     //
 
+    virtual string ToString() = 0;
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
+
     virtual bool IsInSelection(const Point &a, const Point &b) = 0;
     // Mode d'emploi :
     //
     // Contrat :
     //
-
-//------------------------------------------------- Surcharge d'opérateurs
-    Figure & operator = ( const Figure & unFigure );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
-
 
 //-------------------------------------------- Constructeurs - destructeur
     Figure ( const Figure & unFigure );

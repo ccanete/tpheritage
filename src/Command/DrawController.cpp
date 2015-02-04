@@ -13,6 +13,7 @@
 #include <iostream>
 #include <vector>
 #include <cstdlib>
+#include <fstream>
 
 
 //------------------------------------------------------ Include personnel
@@ -30,10 +31,7 @@ DrawController::DrawController ( )
 #ifdef MAP
     cout << "Appel au constructeur de <DrawController>" << endl;
 #endif
-<<<<<<< Updated upstream
-=======
         //map <char *,Figure *> figuresList;
->>>>>>> Stashed changes
 
 } //----- Fin de DrawController
 
@@ -133,7 +131,7 @@ int DrawController::ExecuteCommand ( string commandInput )
 	/*----------COMMAND SAVE----------*/
 	else if (!strcmp(command,"SAVE"))
 	{
-		//return save(params);
+		return saveFigures(params);
 	}
 	
 	/*----------COMMAND CLEAR----------*/
@@ -190,23 +188,13 @@ int DrawController::addFigure ( char cmd , char * params)
 			coordY1 = strtol(thirdEntry,NULL,10);
 			radius = strtol(fourthEntry,NULL,10);
 
-<<<<<<< Updated upstream
-			Figure * myFigure;
-			figuresList.insert ( std::pair<char *,Figure *>(firstEntry, myFigure) );
 			//AddCommand * myCommand;
 			//commandsList.push();
 
-
-			cout << "#Circle " << firstEntry << " of center (" << coordX1 << ", " << coordY1 << ") and radius " << radius << " has been created.\r\n";
-
-			return "OK\r\n";
-
-=======
->>>>>>> Stashed changes
 			// Circle creation method
-			Circle test = Circle(firstEntry, coordX1, coordY1, radius);
-			////test.ToString();
-			cout << test;
+			Figure * myFigure = new Circle(firstEntry, coordX1, coordY1, radius);
+			figuresList.insert ( std::pair<char *,Figure *>(firstEntry, myFigure) );
+			//figuresList.find(firstEntry)->second->ToString();
 		}
 		return 0;
 	}
@@ -319,6 +307,78 @@ int DrawController::addFigure ( char cmd , char * params)
 		//test.ToString();
 		cout << test;
 		myVector.clear();
+		return 0;
+	}
+}
+
+int DrawController::createSelection( char * params )
+{
+	char * firstEntry = strtok(params, " ");
+	char * secondEntry = strtok(NULL, " "); 
+	char * thirdEntry = strtok(NULL, " ");
+	char * fourthEntry = strtok(NULL, " ");
+	char * fifthEntry = strtok(NULL, " ");
+
+	if ( firstEntry == NULL)
+	{
+		cout << "ERR\r\n";
+		cout << "# Invalide name.\r\n";
+	}
+	else if (secondEntry == NULL || thirdEntry == NULL)
+	{
+		cout << "ERR\r\n";
+		cout << "# Invalide first point.\r\n";
+	}
+	else if ( fourthEntry == NULL || fifthEntry == NULL)
+	{
+		cout << "ERR\r\n";
+		cout << "# Invalide second point.\r\n";
+	}
+	else
+	{
+		signed long coordX1 = strtol(secondEntry,NULL,10);
+		signed long coordY1 = strtol(thirdEntry,NULL,10);
+		signed long coordX2 = strtol(fourthEntry,NULL,10);
+		signed long coordY2 = strtol(fifthEntry,NULL,10);
+
+		// Selection creation method
+		Selection test = Selection(firstEntry, Point(coordX1, coordY1), Point(coordX2, coordY2));
+		////test.ToString();
+		cout << test;
+	}
+	return 0;
+}
+
+int DrawController::saveFigures( char * params )
+{
+	char * firstEntry = strtok(params, " ");
+	char * secondEntry = strtok(NULL, " ");
+	if ( firstEntry == NULL || secondEntry != NULL)
+	{
+		cout << "ERR\r\n";
+		cout << "# Invalide file name.\r\n";
+		return -1;
+	}
+	else
+	{
+		// Save method
+		ofstream fichier(firstEntry, ios::out | ios::trunc);  // file writtable
+
+        if(fichier)
+        {
+ 			for (map<string,Figure *>::iterator it = figuresList.begin(); it != figuresList.end(); it++)
+    		{
+    			fichier << it->second->ToString();
+    		}
+                fichier.close();
+        }
+        else
+        {
+			cerr << "# File cannot be opened !" << endl;
+			return -1;
+        }
+		cout << "OK\r\n";
+		cout << "# The file " << firstEntry << " has been saved.\r\n";
 		return 0;
 	}
 }

@@ -1,72 +1,61 @@
 /*************************************************************************
-                           Circle  -  description
+                           Selection  -  description
                              -------------------
     début                : 21/01/2015
     copyright            : (C) 2015 par Accardo & Canete
 *************************************************************************/
 
-//---------- Interface de la classe <Circle> (fichier Circle.h) ------
-#if ! defined ( CIRCLE_H )
-#define CIRCLE_H
+//---------- Interface de la classe <Selection> (fichier Selection.h) ------
+#if ! defined ( RECTANGLE_H )
+#define RECTANGLE_H
 
 //--------------------------------------------------- Interfaces utilisées
 #include "Figure.h"
 #include "Point.h"
-
 //------------------------------------------------------------- Constantes 
 
 //------------------------------------------------------------------ Types 
 
 //------------------------------------------------------------------------ 
-// Rôle de la classe <Circle>
+// Rôle de la classe <Selection>
 //
 //
 //------------------------------------------------------------------------ 
 
-class Circle : public Figure
+class Selection
 {
 //----------------------------------------------------------------- PUBLIC
 
 public:
 //----------------------------------------------------- Méthodes publiques
-    // type Méthode ( liste de paramètres );
-    // Manual :
-    //
-    // Contrat :
-    //
-
     void Move(const signed long &dx, const signed long &dy);
-    // Manual : Methode that move a point by dx over x-axis and by 
+    // Mode d'emploi : Methode that move a point by dx over x-axis and by 
     //                 dy over y-axis.
     // @param : Value that will be incremented over x-axis
     // @param : Value that will be incremented over y-axis
 
-    virtual bool IsInSelection(const Point &a, const Point &b);
-    // Manual : Methode that verify if the circle belong to a
+    bool IsInSelection(const Point &a, const Point &b);
+    // Mode d'emploi : Methode that verify if the rectangle belong to a
     //                 selection.
     // @param : First point, lower left vertice
     // @param : Second point, upper right vertice 
 
     string ToString();
-    // Manual : Methode that return the string used to create it.
-
+    // Mode d'emploi : Methode that return the string used to create it.
 
 //------------------------------------------------- Surcharge d'opérateurs
-    friend ostream& operator << ( ostream &flux, const Circle &c);
-    // Manual : Overcharged of operator <<, to post a circle.
-
-
+    friend ostream& operator << ( ostream &flux, const Selection &r);
+    // Mode d'emploi : Overcharged of operator <<, to post a rectangle.
 
 //-------------------------------------------- Constructeurs - destructeur
-    Circle ( string n, signed long x, signed long y, int r );
-    // Manual : Circle's constructor.
-    // @param : Circle's name
-    // @param : First circle's center.
-    // @param : Second circle's point
+    Selection ( string name, Point a, Point b );
+    // Mode d'emploi : Selection's constructor.
+    // @param : Selection's name
+    // @param : First rectangle's point, lower left vertice
+    // @param : Second rectangle's point, upper right vertice
 
-    virtual ~Circle ( );
-    // Manual : Circle's destructor.
-
+    virtual ~Selection ( );
+    // Mode d'emploi : Selection's destructor.
 
 //------------------------------------------------------------------ PRIVE 
 
@@ -78,11 +67,12 @@ private:
 
 protected:
 //----------------------------------------------------- Attributs protégés
-    Point center;
-    signed long radius;
+
 private:
 //------------------------------------------------------- Attributs privés
-
+    string name;
+    Point pointA;
+    Point pointB;
 //---------------------------------------------------------- Classes amies
 
 //-------------------------------------------------------- Classes privées
@@ -91,6 +81,6 @@ private:
 
 };
 
-//----------------------------------------- Types dépendants de <Circle>
+//----------------------------------------- Types dépendants de <Selection>
 
-#endif // CIRCLE_H
+#endif // RECTANGLE_H

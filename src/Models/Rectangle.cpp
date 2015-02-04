@@ -64,7 +64,6 @@ string Rectangle::ToString()
     	 << " " << pointB.GetX() << " " 
     	 << pointB.GetY() << "\r\n";
     string result = sstm.str();
-    cout << result;
     return result;
 }
 //----- Fin de Méthode
