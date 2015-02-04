@@ -77,31 +77,32 @@ AddCommand::AddCommand (map <string, Figure *> * mapFigure, char objType, char *
 		Rectangle * myRectangle = new Rectangle(name, Point(coordX1, coordY1), Point(coordX2, coordY2));
 		newFigure = myRectangle;
 	}
-	/*
+	
 	if (myObjType == 'L')
 	{
-		firstEntry = strtok(params, " ");
+		name  = strtok(params, " ");
+
 		secondEntry = strtok(NULL, " "); 
 		thirdEntry = strtok(NULL, " ");
 		fourthEntry = strtok(NULL, " ");
 		fifthEntry = strtok(NULL, " ");
 
 		coordX1 = strtol(secondEntry,NULL,10);
-			coordY1 = strtol(thirdEntry,NULL,10);
-			coordX2 = strtol(fourthEntry,NULL,10);
-			coordY2 = strtol(fifthEntry,NULL,10);
-			
-			// Line creation method
-			Line test = Line(firstEntry, Point(coordX1, coordY1), Point(coordX2, coordY2));
-			////test.ToString();
+		coordY1 = strtol(thirdEntry,NULL,10);
+		coordX2 = strtol(fourthEntry,NULL,10);
+		coordY2 = strtol(fifthEntry,NULL,10);
+		
+		// Line creation method
+		Line * myLine = new Line(name, Point(coordX1, coordY1), Point(coordX2, coordY2));
+		newFigure = myLine;
 	}
+	
 	if (myObjType == 'P')
 	{
-		int i = ZERO;
 		vector<Point> myVector;
-		firstEntry = strtok(params, " ");
+		name = strtok(params, " ");
 
-		while (ONE)
+		while (true)
 		{
 			secondEntry = strtok(NULL, " ");
 			thirdEntry = strtok(NULL, " "); 
@@ -110,22 +111,11 @@ AddCommand::AddCommand (map <string, Figure *> * mapFigure, char objType, char *
 				break;
 			}
 			myVector.push_back(Point(strtol(secondEntry,NULL,10), strtol(thirdEntry,NULL,10)));
-			i++;
 		}
 
-		if ( secondEntry != NULL )
-		{
-			cout << "ERR\r\n";
-			cout << "# Invalide " << i + ONE << "th point.\r\n";
-			return ONE;
-		}
-
-		Polyline test = Polyline(firstEntry, myVector);
-		//test.ToString();
-		myVector.clear();
-		return ZERO;
+		Polyline * myPolyline = new Polyline(name, myVector);
+		newFigure = myPolyline;
 	}
-	*/
 
 } //----- Fin de AddCommand
 

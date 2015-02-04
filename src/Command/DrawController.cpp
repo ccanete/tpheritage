@@ -190,10 +190,10 @@ int DrawController::addFigure( char cmd , char * params)
 			coordY1 = strtol(thirdEntry,NULL,10);
 			radius = strtol(fourthEntry,NULL,10);
 
-			// Circle creation method
+			// Figure creation method
 			
-			AddCommand newCircle (&mapFigure, 'C', cleanParams);
-			newCircle.Do();
+			AddCommand newFig (&mapFigure, 'C', cleanParams);
+			newFig.Do();
 		}
 		return ZERO;
 	}
@@ -227,9 +227,10 @@ int DrawController::addFigure( char cmd , char * params)
 			coordX2 = strtol(fourthEntry,NULL,10);
 			coordY2 = strtol(fifthEntry,NULL,10);
 
-			// Rectangle creation method
-			Rectangle test = Rectangle(firstEntry, Point(coordX1, coordY1), Point(coordX2, coordY2));
-			////test.ToString();
+			// Figure creation method
+			
+			AddCommand newFig (&mapFigure, 'R', cleanParams);
+			newFig.Do();
 		}
 		return ZERO;
 	}
@@ -262,10 +263,11 @@ int DrawController::addFigure( char cmd , char * params)
 			coordY1 = strtol(thirdEntry,NULL,10);
 			coordX2 = strtol(fourthEntry,NULL,10);
 			coordY2 = strtol(fifthEntry,NULL,10);
+
+			// Figure creation method
 			
-			// Line creation method
-			Line test = Line(firstEntry, Point(coordX1, coordY1), Point(coordX2, coordY2));
-			////test.ToString();
+			AddCommand newFig (&mapFigure, 'L', cleanParams);
+			newFig.Do();
 		}
 		return ZERO;
 	}
@@ -300,8 +302,10 @@ int DrawController::addFigure( char cmd , char * params)
 			return ONE;
 		}
 
-		Polyline test = Polyline(firstEntry, myVector);
-		//test.ToString();
+		// Figure creation method
+		
+		AddCommand newFig (&mapFigure, 'P', cleanParams);
+		newFig.Do();
 		myVector.clear();
 		return ZERO;
 	}
