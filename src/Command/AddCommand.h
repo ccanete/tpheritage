@@ -46,6 +46,8 @@ public:
 
     virtual bool Undo();
 
+    string Display();
+
     virtual ~AddCommand ( );
     // Mode d'emploi :
     //
@@ -71,6 +73,7 @@ private:
     char myObjType;
     char * myParams;
     string name;
+    string description;
     Figure * newFigure;
 
     map <string, Figure *> * myMapFigure;

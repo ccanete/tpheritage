@@ -43,9 +43,9 @@ public:
     string ToString();
     // Mode d'emploi : Methode that return the string used to create it.
 
-//------------------------------------------------- Surcharge d'opérateurs
-    friend ostream& operator << ( ostream &flux, const Rectangle &r);
-    // Mode d'emploi : Overcharged of operator <<, to post a rectangle.
+    string Display();
+    // Mode d'emploi : Method that return the string to describe
+    //                 the figure.
 
 //-------------------------------------------- Constructeurs - destructeur
     Rectangle ( string name, Point a, Point b );

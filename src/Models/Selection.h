@@ -39,9 +39,9 @@ public:
     // @param : Value that will be incremented over x-axis
     // @param : Value that will be incremented over y-axis
 
-//------------------------------------------------- Surcharge d'opérateurs
-    friend ostream& operator << ( ostream &flux, const Selection &r);
-    // Mode d'emploi : Overcharged of operator <<, to post a rectangle.
+    string Display();
+    // Mode d'emploi : Method that return the string to describe
+    //                 the figure.
 
 //-------------------------------------------- Constructeurs - destructeur
     Selection ( string name, Point a, Point b, map<string,Figure *> &myMap );

@@ -36,24 +36,14 @@ void Selection::Move(const signed long &dx, const signed long &dy)
 	}
 //----- Fin de Méthode
 
-//------------------------------------------------- Surcharge d'opérateurs
-ostream& operator << ( ostream &flux, const Selection &r )
-// Algorithme :
-//
-{
-    flux << "# Selection ";
-    flux << r.name;
-    flux << " formed by (";
-    flux << r.pointA.GetX();
-    flux << ", ";
-    flux << r.pointA.GetY();
-    flux << "), lower left vertice, and (";
-    flux << r.pointB.GetX();
-    flux << ", ";
-    flux << r.pointB.GetY();
-    flux << "), upper high vertice has been created.\r\n";
-    return flux;
-} //----- Fin de operator <<
+string Selection::Display()
+// Algorithme : Use of a stringstream to create a string to describe a selection.
+{   
+    return "# Selection " + name + " formed by (" + std::to_string(pointA.GetX()) + ", " + 
+           std::to_string(pointA.GetY()) + "), lower left vertice, and (" + std::to_string(pointB.GetX()) + ", " + 
+           std::to_string(pointB.GetY()) + "), upper high vertice has been created.\r\n";
+}
+//----- Fin de Méthode
 
 //-------------------------------------------- Constructeurs - destructeur
 Selection::Selection ( string n, Point a, Point b, map<string,Figure *> &myMap ) : name(n), pointA(a), pointB(b)
@@ -61,7 +51,6 @@ Selection::Selection ( string n, Point a, Point b, map<string,Figure *> &myMap )
 //              (map) and creation of two Points.
 {
     map<string,Figure *>::iterator it;
-    cout << *this;
     for (it = myMap.begin(); it != myMap.end(); it++)
     {
         if (it->second->IsInSelection(a, b))

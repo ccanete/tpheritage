@@ -37,24 +37,25 @@ string Figure::GetName()
 
 //------------------------------------------------- Surcharge d'opérateurs
 bool Figure::operator < ( const Figure &f )
-// Algorithme : 
-//
 {
 	return name > f.name;
 } //----- Fin de operator =
 
+string Figure::Display()
+{
+	return "test";
+}
 
 //-------------------------------------------- Constructeurs - destructeur
 Figure::Figure ( string name )
 // Algorithme : Save of figure's name.
 // @param : Name.
 {
-this->name = name;
+	this->name = name;
 #ifdef MAP
     cout << "Appel au constructeur de <Figure>" << endl;
 #endif
 } //----- Fin de Figure
-
 
 Figure::~Figure ( )
 {

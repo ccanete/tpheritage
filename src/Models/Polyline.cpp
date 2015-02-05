@@ -71,16 +71,15 @@ string Polyline::ToString()
 }
 //----- Fin de Méthode
 
-//------------------------------------------------- Surcharge d'opérateurs
-ostream& operator << ( ostream &flux, Polyline &p )
-// Algorithme :
-//
-{
+string Polyline::Display()
+// Algorithme : Use of a stringstream to create a string to describe a polyline.
+{   
+    stringstream flux;
     flux << "# Polyline ";
-    flux << p.name;
+    flux << name;
     flux << " passing by ";
-    std::vector<Point>::iterator it = p.myVector.begin();
-    for (;it != (p.myVector.end() - ONE); it++)
+    std::vector<Point>::iterator it = myVector.begin();
+    for (;it != (myVector.end() - ONE); it++)
     {
         flux << "(";
         flux << it->GetX();
@@ -94,14 +93,14 @@ ostream& operator << ( ostream &flux, Polyline &p )
     flux << it->GetY();
     flux << ") ";
     flux << "has been created.\r\n";
-    return flux;
-} //----- Fin de operator <<
+    return flux.str();
+}
+//----- Fin de Méthode
 
 //-------------------------------------------- Constructeurs - destructeur
 Polyline::Polyline ( string name, vector<Point> &v ) : Figure(name), myVector(v)
 // Algorithme : Call to Figure's constructor and creation of n Points. 
 {
-    cout << *this;
 #ifdef MAP
     cout << "Appel au constructeur de <Polyline>" << endl;
 #endif

@@ -68,19 +68,19 @@ public:
     // Contrat :
     //
 
-    int ExecuteCommand (string commandInput);
+    string ExecuteCommand (string commandInput);
     // Mode d'emploi :
     //
     // Contrat :
     //
 
-    int AddFigureToList (string name, Figure * figureAdded);
+    string AddFigureToList (string name, Figure * figureAdded);
     // Mode d'emploi :
     //
     // Contrat :
     //
 
-    int RemoveFigureFromList (string name);
+    string RemoveFigureFromList (string name);
     // Mode d'emploi :
     //
     // Contrat :
@@ -94,28 +94,28 @@ public:
 
 private:
 //------------------------------------------------------- Méthodes privées
-    int addFigure (char cmd , char * params);
+    string addFigure (char cmd , char * params);
 
-    int createSelection ( char * params );
+    string createSelection ( char * params );
 
-    int deleteFigures ( char * params );
+    string deleteFigures ( char * params );
 
-    int move ( char * params );
+    string move ( char * params );
 
-    int list ();
+    string list ();
 
-    int undo ();
+    string undo ();
 
-    int redo ();
+    string redo ();
 
-    int loadFigures ( char * params );
+    string loadFigures ( char * params );
 
-    int saveFigures ( char * params );
+    string saveFigures ( char * params );
 
 private:
 //------------------------------------------------------- Attributs privés
     map <string, Figure *> mapFigure;
-    map <string, Selection *> mapSelection;
+    map <string, Selection> mapSelection;
     stack<Command *> commandsListUndo;
     stack<Command *> commandsListRedo;
 

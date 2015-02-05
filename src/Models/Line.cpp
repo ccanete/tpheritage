@@ -60,29 +60,29 @@ string Line::ToString()
 }
 //----- Fin de Méthode
 
-//------------------------------------------------- Surcharge d'opérateurs
-ostream& operator << ( ostream &flux, const Line &l )
-{
+string Line::Display()
+// Algorithme : Use of a stringstream to create a string to describe a line.
+{   
+    stringstream flux;
     flux << "# Line ";
-    flux << l.name;
+    flux << name;
     flux << " passing by (";
-    flux << l.pointA.GetX();
+    flux << pointA.GetX();
     flux << ", ";
-    flux << l.pointA.GetY();
+    flux << pointA.GetY();
     flux << ") and (";
-    flux << l.pointB.GetX();
+    flux << pointB.GetX();
     flux << ", ";
-    flux << l.pointB.GetY();
+    flux << pointB.GetY();
     flux << ") has been created.\r\n";
-    return flux;
-} //----- Fin de operator <<
-
+    return flux.str();
+}
+//----- Fin de Méthode
 
 //-------------------------------------------- Constructeurs - destructeur
 Line::Line ( string name, Point a, Point b ) : Figure(name), pointA(a), pointB(b)
 // Algorithme : Call to Figure's constructor and creation of two Points.
 {
-    cout << *this;
 #ifdef MAP
     cout << "Appel au constructeur de <Line>" << endl;
 #endif

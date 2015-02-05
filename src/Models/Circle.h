@@ -44,13 +44,10 @@ public:
     string ToString();
     // Manual : Methode that return the string used to create it.
 
-
-//------------------------------------------------- Surcharge d'opérateurs
-    friend ostream& operator << ( ostream &flux, const Circle &c);
-    // Manual : Overcharged of operator <<, to post a circle.
-
-
-
+    string Display();
+    // Mode d'emploi : Method that return the string to describe
+    //                 the figure.
+    
 //-------------------------------------------- Constructeurs - destructeur
     Circle ( string n, signed long x, signed long y, int r );
     // Manual : Circle's constructor.

@@ -56,8 +56,7 @@ AddCommand::AddCommand (map <string, Figure *> * mapFigure, char objType, char *
 
 		// Circle creation method
 
-		Circle * myCircle = new Circle(name, coordX1, coordY1, radius);
-		newFigure = myCircle;
+		newFigure = new Circle(name, coordX1, coordY1, radius);
 	}
 	if (myObjType == 'R')
 	{
@@ -113,10 +112,10 @@ AddCommand::AddCommand (map <string, Figure *> * mapFigure, char objType, char *
 			myVector.push_back(Point(strtol(secondEntry,NULL,10), strtol(thirdEntry,NULL,10)));
 		}
 
-		Polyline * myPolyline = new Polyline(name, myVector);
-		newFigure = myPolyline;
+		
+		newFigure = new Polyline(name, myVector);
 	}
-
+	description = newFigure->Display();
 } //----- Fin de AddCommand
 
 bool AddCommand::Do ()
@@ -124,7 +123,6 @@ bool AddCommand::Do ()
 	#ifdef MAP
 	    cout << "Create object" << endl;
 	#endif
-
 	myMapFigure->insert ( std::pair<string,Figure *>(name,newFigure) );
 
 	return true;
@@ -142,10 +140,16 @@ bool AddCommand::Undo ()
 
 } //----- Fin de Undo
 
+string AddCommand::Display()
+{
+	return description;
+}
+
 AddCommand::~AddCommand ( )
 // Algorithme :
 //
 {
+	delete newFigure;
 #ifdef MAP
     cout << "Appel au destructeur de <AddCommand>" << endl;
 #endif

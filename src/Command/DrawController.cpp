@@ -47,7 +47,7 @@ DrawController::~DrawController ( )
 //-------------------------------------------------- Methodes
 
 
-int DrawController::ExecuteCommand ( string commandInput )
+string DrawController::ExecuteCommand ( string commandInput )
 //Algorithme :
 //
 {
@@ -100,6 +100,7 @@ int DrawController::ExecuteCommand ( string commandInput )
 	/*----------COMMAND MOVE----------*/
 	else if (!strcmp(command,"MOVE"))
 	{
+		cout << "test";
 		return move(params);
 	}
 
@@ -141,18 +142,18 @@ int DrawController::ExecuteCommand ( string commandInput )
 	/*----------COMMAND EXIT----------*/
 	else if (!strcmp(command,"EXIT"))
 	{
-		return ONE;
+		return "# The program is being closed.\r\n";
 	}
 
 	else
 	{
-		return TWO;
+		return "ERR\r\n# Unknown command\r\n";
 	}
 
 } //----- Fin de Méthode
 
 
-int DrawController::addFigure( char cmd , char * params)
+string DrawController::addFigure( char cmd , char * params)
 {
 	char * firstEntry, * secondEntry, * thirdEntry, * fourthEntry, * fifthEntry;
 	signed long coordX1, coordX2, coordY1, coordY2;
@@ -172,34 +173,24 @@ int DrawController::addFigure( char cmd , char * params)
 
 		if ( firstEntry == NULL)
 		{
-			cout << "ERR\r\n";
-			cout << "# Invalide name.\r\n";
-			return -ONE;
+			return "ERR\r\n# Invalide name.\r\n";
 		}
 		else if (secondEntry == NULL || thirdEntry == NULL)
 		{
-			cout << "ERR\r\n";
-			cout << "# Invalide center.\r\n";
-			return -ONE;
+			return "ERR\r\n# Invalide center.\r\n";
 		}
 		else if ( fourthEntry == NULL)
 		{
-			cout << "ERR\r\n";
-			cout << "# Invalide radius.\r\n";
-			return -ONE;
+			return "ERR\r\n# Invalide radius.\r\n";
 		}
 		else
 		{
-			coordX1 = strtol(secondEntry, NULL, 10);
-			coordY1 = strtol(thirdEntry, NULL, 10);
-			radius = strtol(fourthEntry, NULL, 10);
-
 			// Figure creation method
 			
 			AddCommand newFig (&mapFigure, 'C', cleanParams);
 			newFig.Do();
+			return "OK\r\n" + newFig.Display();
 		}
-		return ZERO;
 	}
 	if (cmd == 'R')
 	{
@@ -211,32 +202,24 @@ int DrawController::addFigure( char cmd , char * params)
 
 		if ( firstEntry == NULL)
 		{
-			cout << "ERR\r\n";
-			cout << "# Invalide name.\r\n";
+			return "ERR\r\n# Invalide name.\r\n";
 		}
 		else if (secondEntry == NULL || thirdEntry == NULL)
 		{
-			cout << "ERR\r\n";
-			cout << "# Invalide first point.\r\n";
+			return "ERR\r\n# Invalide first point.\r\n";
 		}
 		else if ( fourthEntry == NULL || fifthEntry == NULL)
 		{
-			cout << "ERR\r\n";
-			cout << "# Invalide second point.\r\n";
+			return "ERR\r\n# Invalide second point.\r\n";
 		}
 		else
 		{
-			coordX1 = strtol(secondEntry, NULL, 10);
-			coordY1 = strtol(thirdEntry, NULL, 10);
-			coordX2 = strtol(fourthEntry, NULL, 10);
-			coordY2 = strtol(fifthEntry, NULL, 10);
-
 			// Figure creation method
 			
 			AddCommand newFig (&mapFigure, 'R', cleanParams);
 			newFig.Do();
+			return "OK\r\n" + newFig.Display();
 		}
-		return ZERO;
 	}
 	if (cmd == 'L')
 	{
@@ -248,31 +231,24 @@ int DrawController::addFigure( char cmd , char * params)
 
 		if ( firstEntry == NULL)
 		{
-			cout << "ERR\r\n";
-			cout << "# Invalide name.\r\n";
+			return "ERR\r\n# Invalide name.\r\n";
 		}
 		else if (secondEntry == NULL || thirdEntry == NULL)
 		{
-			cout << "ERR\r\n";
-			cout << "# Invalide first point.\r\n";
+			return "ERR\r\n# Invalide first point.\r\n";
 		}
 		else if ( fourthEntry == NULL || fifthEntry == NULL)
 		{
-			cout << "ERR\r\n";
-			cout << "# Invalide second point.\r\n";
+			return "ERR\r\n# Invalide second point.\r\n";
 		}
 		else
 		{
 
 			// Figure creation method
-			coordX1 = strtol(secondEntry, NULL, 10);
-			coordY1 = strtol(thirdEntry, NULL, 10);
-			coordX2 = strtol(fourthEntry, NULL, 10);
-			coordY2 = strtol(fifthEntry, NULL, 10);
 			AddCommand newFig (&mapFigure, 'L', cleanParams);
 			newFig.Do();
+			return "OK\r\n" + newFig.Display();
 		}
-		return ZERO;
 	}
 	if (cmd == 'P')
 	{
@@ -281,9 +257,7 @@ int DrawController::addFigure( char cmd , char * params)
 		firstEntry = strtok(params, " ");
 		if (firstEntry == NULL)
 		{
-			cout << "ERR\r\n";
-			cout << "# Invalide name.\r\n";
-			return ONE;
+			return "ERR\r\n# Invalide name.\r\n";
 		}
 
 		while (ONE)
@@ -300,21 +274,20 @@ int DrawController::addFigure( char cmd , char * params)
 
 		if ( secondEntry != NULL )
 		{
-			cout << "ERR\r\n";
-			cout << "# Invalide " << i + ONE << "th point.\r\n";
-			return ONE;
+			return "ERR\r\n# Invalide " + std::to_string(i + ONE) + "th point.\r\n";
 		}
 
 		// Figure creation method
 		
 		AddCommand newFig (&mapFigure, 'P', cleanParams);
+
 		newFig.Do();
 		myVector.clear();
-		return ZERO;
+		return "OK\r\n" + newFig.Display();
 	}
 }
 
-int DrawController::createSelection( char * params )
+string DrawController::createSelection( char * params )
 {
 	char * firstEntry = strtok(params, " ");
 	char * secondEntry = strtok(NULL, " "); 
@@ -324,21 +297,15 @@ int DrawController::createSelection( char * params )
 
 	if ( firstEntry == NULL)
 	{
-		cout << "ERR\r\n";
-		cout << "# Invalide name.\r\n";
-		return -ONE;
+		return "ERR\r\n# Invalide name.\r\n";
 	}
 	else if (secondEntry == NULL || thirdEntry == NULL)
 	{
-		cout << "ERR\r\n";
-		cout << "# Invalide first point.\r\n";
-		return -ONE;
+		return "ERR\r\n# Invalide first point.\r\n";
 	}
 	else if ( fourthEntry == NULL || fifthEntry == NULL)
 	{
-		cout << "ERR\r\n";
-		cout << "# Invalide second point.\r\n";
-		return -ONE;
+		return "ERR\r\n# Invalide second point.\r\n";
 	}
 	else
 	{
@@ -348,22 +315,20 @@ int DrawController::createSelection( char * params )
 		signed long coordY2 = strtol(fifthEntry, NULL, 10);
 
 		// Selection creation method
-		//Selection test = Selection(firstEntry, Point(coordX1, coordY1), Point(coordX2, coordY2), mapFigure);
-		////test.ToString();
-	return ZERO;
+		Selection newSelection = Selection(firstEntry, Point(coordX1, coordY1), Point(coordX2, coordY2), mapFigure);
+		mapSelection.insert(std::pair<string,Selection>(firstEntry, newSelection));
+	return "OK\r\n" + newSelection.Display();
 	}
 }
 
-int DrawController::deleteFigures( char * params )
+string DrawController::deleteFigures( char * params )
 {
 	// SEARCHING DOUBLES 
 	vector<string> v;
 	char * firstEntry = strtok(params, " ");
 	if (firstEntry == NULL)
 	{
-		cout << "ERR\r\n";
-    	cout << "# No element\r\n";
-    	return -ONE;
+		return "ERR\r\n# No element\r\n";
 	}
 	else
 	{
@@ -372,7 +337,6 @@ int DrawController::deleteFigures( char * params )
 	int i = 0;
 	while ( (firstEntry = strtok(NULL, " ")) != NULL )
 	{
-		cout << "Vecteur pos" << i << "\r\n";
 		v.push_back(firstEntry);
 		i++;
 	}
@@ -384,13 +348,10 @@ int DrawController::deleteFigures( char * params )
 		i = 0;
 		for (it=v.begin(); it != v.end() - ONE; it++)
 	    {
-	    	cout << "Recherche doublons\r\n";
 	    	i++;
 	    	if (*it == *(it+ONE))
 	    	{
-	    		cout << "ERR\r\n";
-	    		cout << "# " << *it << " is repeated\r\n";
-	    		return -ONE;
+	    		return "ERR\r\n# " + *it + " is repeated\r\n";
 	    	} 
 	    }
 	}
@@ -398,12 +359,9 @@ int DrawController::deleteFigures( char * params )
 	for (it=v.begin(); it != v.end(); it++)
     {
     	i++;
-	    cout << "Recherche dans les maps\r\n";
     	if ( mapSelection.find(*it) == mapSelection.end() && mapFigure.find(*it) == mapFigure.end() )
     	{
-    		cout << "ERR\r\n";
-    		cout << "# " << *it << " doesn't exist\r\n";
-    		return -ONE;
+    		return "ERR\r\n# " + *it + " doesn't exist\r\n";
     	}
     }
 
@@ -422,17 +380,15 @@ int DrawController::deleteFigures( char * params )
     		itFig->second
     	}
     }*/
-    return ZERO;
+    return "OK\r\n";
 }
 
-int DrawController::move( char * params )
+string DrawController::move( char * params )
 {
 	char * firstEntry = strtok(params, " ");
-	if ( mapFigure.find(firstEntry)->second == mapFigure.end()->second )
+	if ( mapFigure.find(firstEntry) == mapFigure.end() )
 	{
-		cout << "ERR\r\n";
-    	cout << "# " << firstEntry << " doesn't exist\r\n";
-    	return -ONE;
+    	return "ERR\r\n# " + (string)firstEntry + " doesn't exist\r\n";;
 	}
 	Figure * figure = mapFigure.find(firstEntry)->second;
 	char * secondEntry = strtok(NULL, " "); 
@@ -441,55 +397,47 @@ int DrawController::move( char * params )
 	signed long coordY = strtol(thirdEntry, NULL, 10);
 	MoveCommand * mvCmd = new MoveCommand(figure, coordX, coordY);
 	mvCmd->Do();
-		cout << "OK\r\n";
-    	cout << "# The object " << firstEntry << " has been moved by " 
-    		 << coordX << " over the x-axis and " << coordY
-			 << " over the y-axis.\r\n";
 	commandsListUndo.push(mvCmd);
-	return ZERO;
+	return "OK\r\n# The object " + (string)firstEntry + " has been moved by " + std::to_string(coordX) +
+		   " over the x-axis and " + std::to_string(coordY) + " over the y-axis.\r\n";
 }
 
-int DrawController::list()
+string DrawController::list()
 {
 	for (map<string,Figure *>::iterator it = mapFigure.begin(); it != mapFigure.end(); it++)
 	{
 		cout << it->second->ToString();	
 	}
-	return ZERO;
+	return "";
 }
 
-int DrawController::undo()
+string DrawController::undo()
 {
-	cout << "OK\r\n";
 	if (commandsListUndo.empty())
 	{
-		cout << "# No UNDO avaible.\r\n";
-		return -ONE;
+		return "OK\r\n# No UNDO avaible.\r\n";
 	}
 	commandsListUndo.top()->Undo();
 	commandsListRedo.push(commandsListUndo.top());
 	commandsListUndo.pop();
-	cout << "OK\r\n";
     
-	return ZERO;
+	return "OK\r\n";
 }
 
-int DrawController::redo()
+string DrawController::redo()
 {
-	cout << "OK\r\n";
 	if (commandsListRedo.empty())
 	{
-		cout << "# No REDO avaible.\r\n";
-		return -ONE;
+		return "OK\r\n# No REDO avaible.\r\n";
 	}
 	commandsListRedo.top()->Do();
 	commandsListUndo.push(commandsListRedo.top());
 	commandsListRedo.pop();
 	
-    return ZERO;
+    return "OK\r\n";
 }
 
-int DrawController::loadFigures( char * params )
+string DrawController::loadFigures( char * params )
 {
 	char * firstEntry = strtok(params, " ");
 	char * secondEntry = strtok(NULL, " ");
@@ -498,9 +446,7 @@ int DrawController::loadFigures( char * params )
 	string read;
 	if ( firstEntry == NULL || secondEntry != NULL)
 	{
-		cout << "ERR\r\n";
-		cout << "# Invalide file name.\r\n";
-		return -ONE;
+		return "ERR\r\n# Invalide file name.\r\n";
 	}
 	ifstream file(firstEntry, ios::in);  // File readable
     if (file)
@@ -524,9 +470,7 @@ int DrawController::loadFigures( char * params )
 				break;
 			if (it->second->GetName() == name)
 			{
-				cout << "ERR\r\n";
-				cout << "# Figure " << name << " already existing.\r\n";
-				return -ONE;
+				return "ERR\r\n# Figure " + (string)name + " already existing.\r\n";
 			}
 			else if (it->second->GetName() < name)
 			{
@@ -544,26 +488,23 @@ int DrawController::loadFigures( char * params )
     }
     else
 	{
-		cerr << "# File cannot be opened !" << endl;
-		return -ONE;
+		return "ERR\r\n# File cannot be opened !\r\n";
 	}
 	file.seekg(ios_base::beg);
 	LoadCommand * ldCmd = new LoadCommand(&mapFigure, file);
 	ldCmd->Do();
 	commandsListUndo.push(ldCmd);
 	file.close();
-    return ZERO;
+    return "OK\r\n";
 }
 
-int DrawController::saveFigures( char * params )
+string DrawController::saveFigures( char * params )
 {
 	char * firstEntry = strtok(params, " ");
 	char * secondEntry = strtok(NULL, " ");
 	if ( firstEntry == NULL || secondEntry != NULL)
 	{
-		cout << "ERR\r\n";
-		cout << "# Invalide file name.\r\n";
-		return -ONE;
+		return "ERR\r\n# Invalide file name.\r\n";
 	}
 	else
 	{
@@ -580,11 +521,8 @@ int DrawController::saveFigures( char * params )
         }
         else
         {
-			cerr << "# File cannot be opened !" << endl;
-			return -ONE;
+			return "ERR\r\n# File cannot be opened !";
         }
-		cout << "OK\r\n";
-		cout << "# The file " << firstEntry << " has been saved.\r\n";
-		return ZERO;
+		return "OK\r\n# The file " + (string)firstEntry + " has been saved.\r\n";
 	}
 }

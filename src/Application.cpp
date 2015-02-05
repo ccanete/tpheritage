@@ -18,19 +18,15 @@ int main()
 	string commandInput;
 	while (getline(cin, commandInput))
 	{
-        int out = drawController.ExecuteCommand(commandInput);
-        if (out == 0)
+        string out = drawController.ExecuteCommand(commandInput);
+        if (out == "# The program is being closed.\r\n")
         {
-            cout << "OK\r\n";
-        }
-        else if (out == 1)
-        {
-        	cout << "EXIT\r\n# The program is being closed.\r\n";
+        	cout << out;
             break;
         }
-        else if (out == 2)
+        else
         {
-        	cout << "ERR\r\n# Unknown command\r\n";
+        	cout << out;
         }
 	}
     return 0;

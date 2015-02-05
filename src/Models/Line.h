@@ -43,10 +43,9 @@ public:
     string ToString();
     // Mode d'emploi : Methode that return the string used to create it.
     
-//------------------------------------------------- Surcharge d'opérateurs
-    friend ostream& operator << ( ostream &flux, const Line &l);
-    // Mode d'emploi : Overcharged of operator <<, to post a line.
-
+    string Display();
+    // Mode d'emploi : Method that return the string to describe
+    //                 the figure.
 
 //-------------------------------------------- Constructeurs - destructeur
     Line ( string name, Point a, Point b );

@@ -55,30 +55,21 @@ string Circle::ToString()
 }
 //----- Fin de Méthode
 
-//------------------------------------------------- Surcharge d'opérateurs
-ostream& operator << ( ostream &flux, const Circle &c )
-// Algorithme :
-//
-{
-    flux << "# Circle ";
-    flux << c.name;
-    flux << " of center (";
-    flux << c.center.GetX();
-    flux << ", ";
-    flux << c.center.GetY();
-    flux << ") and radius ";
-    flux << c.radius;
-    flux << " has been created.\r\n";
-    return flux;
-} //----- Fin de operator <<
-
+string Circle::Display()
+// Algorithme : Use of a stringstream to create a string to describe a circle.
+{   
+    return "# Circle " + name + " of center (" +
+           std::to_string(center.GetX()) + ", " +
+           std::to_string(center.GetY()) + ") and radius " +
+           std::to_string(radius) + " has been created.\r\n";
+}
+//----- Fin de Méthode
 
 //-------------------------------------------- Constructeurs - destructeur
 Circle::Circle ( string name, signed long x, signed long y, int r ) : Figure(name), center(x, y)
 // Algorithme : Call to Figure's constructor and creation of circle's center.
 {
     radius = r;
-    cout << *this;
 #ifdef MAP
     cout << "Appel au constructeur de <Circle>" << endl;
 #endif

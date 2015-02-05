@@ -60,31 +60,30 @@ string Rectangle::ToString()
 }
 //----- Fin de Méthode
 
-//------------------------------------------------- Surcharge d'opérateurs
-ostream& operator << ( ostream &flux, const Rectangle &r )
-// Algorithme :
-//
-{
+string Rectangle::Display()
+// Algorithme : Use of a stringstream to create a string to describe a rectangle.
+{   
+    stringstream flux;
     flux << "# Rectangle ";
-    flux << r.name;
+    flux << name;
     flux << " formed by (";
-    flux << r.pointA.GetX();
+    flux << pointA.GetX();
     flux << ", ";
-    flux << r.pointA.GetY();
+    flux << pointA.GetY();
     flux << "), lower left vertice, and (";
-    flux << r.pointB.GetX();
+    flux << pointB.GetX();
     flux << ", ";
-    flux << r.pointB.GetY();
+    flux << pointB.GetY();
     flux << "), upper high vertice has been created.\r\n";
-    return flux;
-} //----- Fin de operator <<
+    return flux.str();
+}
+//----- Fin de Méthode
 
 //-------------------------------------------- Constructeurs - destructeur
 Rectangle::Rectangle ( string name, Point a, Point b ) : Figure(name), pointA(a), pointB(b)
 // Algorithme : Call to Figure's constructor and creation of two Points.
 
 {
-    cout << *this;
 #ifdef MAP
     cout << "Appel au constructeur de <Rectangle>" << endl;
 #endif

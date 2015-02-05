@@ -50,9 +50,12 @@ public:
     // @param : First point, lower left vertice
     // @param : Second point, upper right vertice 
 
+    virtual string Display() = 0;
+    // Mode d'emploi : Method that return the string to describe
+    //                 the figure.
+    
 //------------------------------------------------- Surcharge d'opérateurs
     bool operator < ( const Figure &f );
-    // Mode d'emploi : Overcharged of operator <<, to post a polyline.
 
 //-------------------------------------------- Constructeurs - destructeur
     Figure ( string name );
