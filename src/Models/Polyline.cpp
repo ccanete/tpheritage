@@ -76,6 +76,7 @@ ostream& operator << ( ostream &flux, Polyline &p )
 // Algorithme :
 //
 {
+    cout << "OK\r\n";
     flux << "# Polyline ";
     flux << p.name;
     flux << " passing by ";
