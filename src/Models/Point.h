@@ -27,37 +27,60 @@ class Point
 
 public:
 //----------------------------------------------------- Méthodes publiques
+    // type Méthode ( liste de paramètres );
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
     Point Move(const signed long &dx, const signed long &dy);
-    // Mode d'emploi : Methode that move a point by dx over x-axis and by 
-    //                 dy over y-axis.
-    // @param : Value that will be incremented over x-axis
-    // @param : Value that will be incremented over y-axis
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
     
     bool IsInSelection(const Point &a, const Point &b);
-    // Mode d'emploi : Methode that verify if the point belong to a
-    //                 selection.
-    // @param : First point, lower left vertice
-    // @param : Second point, upper right vertice 
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
 
     signed long GetX() const;
-    // Mode d'emploi : Method that return x.
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
 
     signed long GetY() const;
-    // Mode d'emploi : Method that return y.
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
+//------------------------------------------------- Surcharge d'opérateurs
+    Point& operator = ( const Point& unPoint);
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
 
 
 //-------------------------------------------- Constructeurs - destructeur
-    Point ( const Point & unPoint );
-    // Mode d'emploi : Point's copies constructor.
-    // @param : Point
+    Point( const Point& unPoint);
+    // Mode d'emploi (constructeur de copie) :
+    //
+    // Contrat :
+    //
 
     Point( const signed long &a, const signed long &b );
-    // Mode d'emploi : Point's constructor.
-    // @param : X
-    // @param : Y
-    virtual ~Point( );
-    // Mode d'emploi : Point's destructor.
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
 
+    virtual ~Point( );
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
 
 //------------------------------------------------------------------ PRIVE 
 

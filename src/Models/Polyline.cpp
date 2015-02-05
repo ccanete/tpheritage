@@ -28,8 +28,15 @@ using namespace std;
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
+// type Polyline::Méthode ( liste de paramètres )
+// Algorithme :
+//
+//{
+//} //----- Fin de Méthode
+
 void Polyline::Move(const signed long &dx, const signed long &dy)
-// Algorithme : Call to point's Move method.
+// Algorithme :
+//
 {
     for (std::vector<Point>::iterator it = myVector.begin() ; it != myVector.end(); it++)
     {
@@ -41,7 +48,8 @@ void Polyline::Move(const signed long &dx, const signed long &dy)
 
 bool Polyline::IsInSelection(const Point &a, const Point &b) 
 {
-// Algorithme : Call to point's IsInSelection method.
+// Algorithme :
+//
     std::vector<Point>::iterator it = myVector.begin();
     for (; it != myVector.end(); it++)
     {
@@ -56,8 +64,8 @@ bool Polyline::IsInSelection(const Point &a, const Point &b)
 
 
 string Polyline::ToString()
-// Algorithme : Use of a stringstream to create a string equals to
-//              input user's one.
+// Algorithme :
+//
 {
     stringstream sstm;
     sstm << "PL " << name << " ";
@@ -76,7 +84,6 @@ ostream& operator << ( ostream &flux, Polyline &p )
 // Algorithme :
 //
 {
-    cout << "OK\r\n";
     flux << "# Polyline ";
     flux << p.name;
     flux << " passing by ";
@@ -100,7 +107,8 @@ ostream& operator << ( ostream &flux, Polyline &p )
 
 //-------------------------------------------- Constructeurs - destructeur
 Polyline::Polyline ( string name, vector<Point> &v ) : Figure(name), myVector(v)
-// Algorithme : Call to Figure's constructor and creation of n Points. 
+// Algorithme :
+//
 {
     cout << *this;
 #ifdef MAP
@@ -110,6 +118,8 @@ Polyline::Polyline ( string name, vector<Point> &v ) : Figure(name), myVector(v)
 
 
 Polyline::~Polyline ( )
+// Algorithme :
+//
 {
 #ifdef MAP
     cout << "Appel au destructeur de <Polyline>" << endl;

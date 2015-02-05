@@ -124,7 +124,7 @@ int DrawController::ExecuteCommand ( string commandInput )
 	/*----------COMMAND LOAD----------*/
 	else if (!strcmp(command,"LOAD"))
 	{
-		//return load(params);
+		return loadFigures(params);
 	}
 	
 	/*----------COMMAND SAVE----------*/
@@ -157,7 +157,8 @@ int DrawController::addFigure( char cmd , char * params)
 	char * firstEntry, * secondEntry, * thirdEntry, * fourthEntry, * fifthEntry;
 	signed long coordX1, coordX2, coordY1, coordY2;
 	long radius;
-	char cleanParams [strlen(params)];
+	char cleanParams [100];
+	if (params != NULL)
 	strcpy(cleanParams,params);
 
 
@@ -488,6 +489,72 @@ int DrawController::redo()
     return ZERO;
 }
 
+int DrawController::loadFigures( char * params )
+{
+	char * firstEntry = strtok(params, " ");
+	char * secondEntry = strtok(NULL, " ");
+	char * text;
+	char * name;
+	string read;
+	if ( firstEntry == NULL || secondEntry != NULL)
+	{
+		cout << "ERR\r\n";
+		cout << "# Invalide file name.\r\n";
+		return -ONE;
+	}
+	ifstream file(firstEntry, ios::in);  // File readable
+    if (file)
+    {
+		getline(file, read);
+		text = (char *) read.c_str();
+		strtok(text, " ");
+		name = strtok(NULL, " ");
+		map<string,Figure *>::iterator it = mapFigure.begin();
+		while (ONE)
+		{
+			if ( *(strtok(text, " ")) == '#')
+			{
+				getline(file, read);
+				text = (char *) read.c_str();
+				strtok(text, " ");
+				name = strtok(NULL, " ");
+				continue;
+			}
+			if (it == mapFigure.end())
+				break;
+			if (it->second->GetName() == name)
+			{
+				cout << "ERR\r\n";
+				cout << "# Figure " << name << " already existing.\r\n";
+				return -ONE;
+			}
+			else if (it->second->GetName() < name)
+			{
+				it++;
+			}
+			else
+			{
+				if (!getline(file, read))
+					break;
+				text = (char *) read.c_str();
+				strtok(text, " ");
+				name = strtok(NULL, " ");
+			}
+		}
+    }
+    else
+	{
+		cerr << "# File cannot be opened !" << endl;
+		return -ONE;
+	}
+	file.seekg(ios_base::beg);
+	LoadCommand * ldCmd = new LoadCommand(&mapFigure, file);
+	ldCmd->Do();
+	commandsListUndo.push(ldCmd);
+	file.close();
+    return ZERO;
+}
+
 int DrawController::saveFigures( char * params )
 {
 	char * firstEntry = strtok(params, " ");
@@ -501,15 +568,15 @@ int DrawController::saveFigures( char * params )
 	else
 	{
 		// Save method
-		ofstream fichier(firstEntry, ios::out | ios::trunc);  // file writtable
+		ofstream file(firstEntry, ios::out | ios::trunc);  // file writtable
 
-        if(fichier)
+        if(file)
         {
  			for (map<string,Figure *>::iterator it = mapFigure.begin(); it != mapFigure.end(); it++)
     		{
-    			fichier << it->second->ToString();
+    			file << it->second->ToString();
     		}
-                fichier.close();
+                file.close();
         }
         else
         {

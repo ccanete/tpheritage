@@ -32,36 +32,51 @@ class Figure
 public:
 //----------------------------------------------------- Méthodes publiques
     virtual void Move(const signed long &dx, const signed long &dy) = 0;
-    // Mode d'emploi : Method that move a point by dx over x-axis and by 
+    // Mode d'emploi : Methode that move a point by dx over x-axis and by 
     //                 dy over y-axis.
     // @param : Value that will be incremented over x-axis
     // @param : Value that will be incremented over y-axis
 
     string GetName();
-    // Mode d'emploi : Method that return the figure's name.
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
 
     virtual string ToString() = 0;
-    // Mode d'emploi : Method that return the string used to recreate 
-    //                 the figure.
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
 
     virtual bool IsInSelection(const Point &a, const Point &b) = 0;
-    // Manual : Methode that verify if the circle belong to a
-    //                 selection.
-    // @param : First point, lower left vertice
-    // @param : Second point, upper right vertice 
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
 
 //------------------------------------------------- Surcharge d'opérateurs
     bool operator < ( const Figure &f );
     // Mode d'emploi : Overcharged of operator <<, to post a polyline.
 
 //-------------------------------------------- Constructeurs - destructeur
+    Figure ( const Figure & unFigure );
+    // Mode d'emploi (constructeur de copie) :
+    //
+    // Contrat :
+    //
+
     Figure ( string name );
-    // Mode d'emploi : Figure's constructor.
-    // @param : Figure's name
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
 
     virtual ~Figure ( );
-    // Mode d'emploi : Figure's destructor.
-
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
 
 //------------------------------------------------------------------ PRIVE 
 

@@ -1,12 +1,13 @@
 # Compilation binaries
 CC = g++
-CFLAGS = -DMAP -g -std=c++11 #-stdlib=libc++
+#-DMAP
+CFLAGS = -g -std=c++11 #-stdlib=libc++
 LNFLAGS =
 ARFLAGS =
 
 # Sources
 MODELS_SRC = Figure.cpp Circle.cpp Point.cpp Line.cpp Polyline.cpp Rectangle.cpp Selection.cpp
-COMMAND_SRC = DrawController.cpp Command.cpp AddCommand.cpp RemoveCommand.cpp MoveCommand.cpp
+COMMAND_SRC = DrawController.cpp Command.cpp AddCommand.cpp RemoveCommand.cpp MoveCommand.cpp LoadCommand.cpp
 APPLICATION_SRC = Application.cpp
 
 # Objects

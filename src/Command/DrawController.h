@@ -27,14 +27,16 @@
 #include "../Models/Selection.h"
 #include "Command.h"
 #include "MoveCommand.h"
+#include "LoadCommand.h"
 
 //------------------------------------------------------------- Constantes 
 
 #define ZERO 0
 #define ONE 1
 #define TWO 2
+#define HUNDRED 100
 #define MAXUNDO 20
-#define MAP
+//#define MAP
 
 
 
@@ -105,6 +107,8 @@ private:
     int undo ();
 
     int redo ();
+
+    int loadFigures ( char * params );
 
     int saveFigures ( char * params );
 

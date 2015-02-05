@@ -29,21 +29,21 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 void Line::Move(const signed long &dx, const signed long &dy)
-// Algorithme : Call to point's Move method.
-{
+// 	Algorithme : Use of Move point's methode.
+	{
 	pointA.Move(dx, dy);
 	pointB.Move(dx, dy);
-}
+	}
 //----- Fin de Méthode
 
 bool Line::IsInSelection(const Point &a, const Point &b) 
-// Algorithme : Call to point's IsInSelection method.
-{
-	if (pointA.IsInSelection(a, b) && pointB.IsInSelection(a, b))
-		return true;
-	else
-    	return false;
-}
+// 	Algorithme : Use of IsInSelection point's methode.
+	{
+		if (pointA.IsInSelection(a, b) && pointB.IsInSelection(a, b))
+			return true;
+		else
+	    	return false;
+	}
 //----- Fin de Méthode
 
 string Line::ToString()
@@ -63,7 +63,6 @@ string Line::ToString()
 //------------------------------------------------- Surcharge d'opérateurs
 ostream& operator << ( ostream &flux, const Line &l )
 {
-    cout << "OK\r\n";
     flux << "# Line ";
     flux << l.name;
     flux << " passing by (";
@@ -81,7 +80,6 @@ ostream& operator << ( ostream &flux, const Line &l )
 
 //-------------------------------------------- Constructeurs - destructeur
 Line::Line ( string name, Point a, Point b ) : Figure(name), pointA(a), pointB(b)
-// Algorithme : Call to Figure's constructor and creation of two Points.
 {
     cout << *this;
 #ifdef MAP

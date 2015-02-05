@@ -30,23 +30,31 @@ using namespace std;
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
+// type Circle::Méthode ( liste de paramètres )
+// Algorithme :
+//
+//{
+//} //----- Fin de Méthode
+
 void Circle::Move(const signed long &dx, const signed long &dy)
-// Algorithme : Call to point's Move method.
+// Algorithme :
+//
 {
 	center.Move(dx, dy);
 }
 //----- Fin de Méthode
 
 bool Circle::IsInSelection(const Point &a, const Point &b)
-// Algorithme : Call to point's IsInSelection method.
+// Algorithme :
+//
 {
 	return center.IsInSelection(Point(a).Move(radius, radius), Point(b).Move(-radius, -radius));
 }
 //----- Fin de Méthode
 
 string Circle::ToString()
-// Algorithme : Use of a stringstream to create a string equals to
-//              input user's one.
+// Algorithme :
+//
 {   
     stringstream sstm;
     sstm << "C " << name << " " << center.GetX() << " " << center.GetY() << " " << radius << "\r\n";
@@ -60,7 +68,6 @@ ostream& operator << ( ostream &flux, const Circle &c )
 // Algorithme :
 //
 {
-    cout << "OK\r\n";
     flux << "# Circle ";
     flux << c.name;
     flux << " of center (";
@@ -75,8 +82,19 @@ ostream& operator << ( ostream &flux, const Circle &c )
 
 
 //-------------------------------------------- Constructeurs - destructeur
+/*Circle::Circle ( const Circle & unCircle )
+// Algorithme :
+//
+{
+#ifdef MAP
+    cout << "Appel au constructeur de copie de <Circle>" << endl;
+#endif
+} //----- Fin de Circle (constructeur de copie)
+*/
+
 Circle::Circle ( string name, signed long x, signed long y, int r ) : Figure(name), center(x, y)
-// Algorithme : Call to Figure's constructor and creation of circle's center.
+// Algorithme :
+//
 {
     radius = r;
     cout << *this;
@@ -87,6 +105,8 @@ Circle::Circle ( string name, signed long x, signed long y, int r ) : Figure(nam
 
 
 Circle::~Circle ( )
+// Algorithme :
+//
 {
 #ifdef MAP
     cout << "Appel au destructeur de <Circle>" << endl;

@@ -27,9 +27,16 @@ using namespace std;
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
+// type Point::Méthode ( liste de paramètres )
+// Algorithme :
+//
+//{
+//} //----- Fin de Méthode
+
 Point Point::Move(const signed long &dx, const signed long &dy) 
 {
-// Algorithme : Method that move a point.
+// Algorithme :
+//
     x += dx;
     y += dy;
     return *this;
@@ -38,7 +45,7 @@ Point Point::Move(const signed long &dx, const signed long &dy)
 
 bool Point::IsInSelection(const Point &a, const Point &b)
 {
-// Algorithme : Method that verify if a point belongs to a selection.
+// Algorithme :
 //
     if ( x >= a.x && x <= b.x && y >= a.y && y <= b.y )
     {
@@ -53,18 +60,31 @@ bool Point::IsInSelection(const Point &a, const Point &b)
 
 signed long Point::GetX() const
 {
+// Algorithme :
+//
     return x;
 }
 //----- Fin de Méthode
 
 signed long Point::GetY() const
 {
+// Algorithme :
+//
     return y;
 }
 //----- Fin de Méthode
+//------------------------------------------------- Surcharge d'opérateurs
+/*Point & Point::operator = ( const Point & unPoint )
+// Algorithme :
+//
+{
+} //----- Fin de operator =
+*/
 
 //-------------------------------------------- Constructeurs - destructeur
 Point::Point ( const Point & unPoint )
+// Algorithme :
+//
 {
     x = unPoint.x;
     y = unPoint.y;
@@ -75,7 +95,7 @@ Point::Point ( const Point & unPoint )
 
 
 Point::Point ( const signed long &a, const signed long &b )
-// Algorithme : Save of x's and y's values.
+// Algorithme :
 //
 {
     x = a;
@@ -87,6 +107,8 @@ Point::Point ( const signed long &a, const signed long &b )
 
 
 Point::~Point ( )
+// Algorithme :
+//
 {
 #ifdef MAP
     cout << "Appel au destructeur de <Point>" << endl;

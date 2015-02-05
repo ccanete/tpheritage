@@ -28,8 +28,15 @@ using namespace std;
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
+// type Rectangle::Méthode ( liste de paramètres )
+// Algorithme :
+//
+//{
+//} //----- Fin de Méthode
+
 void Rectangle::Move(const signed long &dx, const signed long &dy)
-// Algorithme : Call to point's Move method.	
+// 	Algorithme :
+//				
 	{
 	pointA.Move(dx, dy);
 	pointB.Move(dx, dy);
@@ -37,7 +44,8 @@ void Rectangle::Move(const signed long &dx, const signed long &dy)
 //----- Fin de Méthode
 
 bool Rectangle::IsInSelection(const Point &a, const Point &b) 
-// Algorithme : Call to point's IsInSelection method.
+// 	Algorithme :
+//	
 	{
 		if (pointA.IsInSelection(a, b) && pointB.IsInSelection(a, b))
 			return true;
@@ -47,8 +55,8 @@ bool Rectangle::IsInSelection(const Point &a, const Point &b)
 //----- Fin de Méthode
 
 string Rectangle::ToString()
-// Algorithme : Use of a stringstream to create a string equals to
-//              input user's one.
+// Algorithme :
+//
 {   
     stringstream sstm;
     sstm << "R " << name << " " 
@@ -65,7 +73,6 @@ ostream& operator << ( ostream &flux, const Rectangle &r )
 // Algorithme :
 //
 {
-    cout << "OK\r\n";
     flux << "# Rectangle ";
     flux << r.name;
     flux << " formed by (";
@@ -81,9 +88,19 @@ ostream& operator << ( ostream &flux, const Rectangle &r )
 } //----- Fin de operator <<
 
 //-------------------------------------------- Constructeurs - destructeur
-Rectangle::Rectangle ( string name, Point a, Point b ) : Figure(name), pointA(a), pointB(b)
-// Algorithme : Call to Figure's constructor and creation of two Points.
+/*Rectangle::Rectangle ( const Rectangle & unRectangle )
+// Algorithme :
+//
+{
+#ifdef MAP
+    cout << "Appel au constructeur de copie de <Rectangle>" << endl;
+#endif
+} //----- Fin de Rectangle (constructeur de copie)
+*/
 
+Rectangle::Rectangle ( string name, Point a, Point b ) : Figure(name), pointA(a), pointB(b)
+// Algorithme :
+//
 {
     cout << *this;
 #ifdef MAP
@@ -93,6 +110,8 @@ Rectangle::Rectangle ( string name, Point a, Point b ) : Figure(name), pointA(a)
 
 
 Rectangle::~Rectangle ( )
+// Algorithme :
+//
 {
 #ifdef MAP
     cout << "Appel au destructeur de <Rectangle>" << endl;
