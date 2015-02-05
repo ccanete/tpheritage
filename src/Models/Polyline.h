@@ -29,16 +29,11 @@ class Polyline : public Figure
 
 public:
 //----------------------------------------------------- Méthodes publiques
-    // type Méthode ( liste de paramètres );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
     void Move(const signed long &dx, const signed long &dy);
     // Mode d'emploi : Methode that move every point by dx over x-axis and 
     //                 by dy over y-axis.
     // @param : Value that will be incremented over x-axis
-    // @param : Value that will be incremented over y-axis
+    // @param : Value that will be incremented over y-axis
 
     bool IsInSelection(const Point &a, const Point &b);
     // Mode d'emploi : Methode that verify if the polyline belong to a
@@ -49,9 +44,9 @@ public:
     string ToString();
     // Mode d'emploi : Methode that return the string used to create it.
 
-//------------------------------------------------- Surcharge d'opérateurs
-    friend ostream& operator << ( ostream &flux, Polyline &p);
-    // Mode d'emploi : Overcharged of operator <<, to post a polyline.
+    string Display();
+    // Mode d'emploi : Method that return the string to describe
+    //                 the figure.
 
 //-------------------------------------------- Constructeurs - destructeur
     Polyline ( string name, vector<Point> &v );

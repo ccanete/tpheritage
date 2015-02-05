@@ -29,17 +29,11 @@ class Circle : public Figure
 
 public:
 //----------------------------------------------------- Méthodes publiques
-    // type Méthode ( liste de paramètres );
-    // Manual :
-    //
-    // Contrat :
-    //
-
     void Move(const signed long &dx, const signed long &dy);
-    // Manual : Methode that move a point by dx over x-axis and by 
+    // Manual : Methode that move the circle by dx over x-axis and by 
     //                 dy over y-axis.
     // @param : Value that will be incremented over x-axis
-    // @param : Value that will be incremented over y-axis
+    // @param : Value that will be incremented over y-axis
 
     virtual bool IsInSelection(const Point &a, const Point &b);
     // Manual : Methode that verify if the circle belong to a
@@ -50,13 +44,10 @@ public:
     string ToString();
     // Manual : Methode that return the string used to create it.
 
-
-//------------------------------------------------- Surcharge d'opérateurs
-    friend ostream& operator << ( ostream &flux, const Circle &c);
-    // Manual : Overcharged of operator <<, to post a circle.
-
-
-
+    string Display();
+    // Mode d'emploi : Method that return the string to describe
+    //                 the figure.
+    
 //-------------------------------------------- Constructeurs - destructeur
     Circle ( string n, signed long x, signed long y, int r );
     // Manual : Circle's constructor.

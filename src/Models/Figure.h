@@ -49,6 +49,12 @@ public:
     // Contrat :
     //
 
+    virtual string Display() = 0;
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
+
     virtual bool IsInSelection(const Point &a, const Point &b) = 0;
     // Mode d'emploi :
     //

@@ -34,15 +34,19 @@ class Selection
 public:
 //----------------------------------------------------- Méthodes publiques
     void Move(const signed long &dx, const signed long &dy);
-    // Mode d'emploi : Methode that move a point by dx over x-axis and by 
+    // Mode d'emploi : Methode that move the selection by dx over x-axis and by 
     //                 dy over y-axis.
     // @param : Value that will be incremented over x-axis
-    // @param : Value that will be incremented over y-axis
+    // @param : Value that will be incremented over y-axis
 
-//------------------------------------------------- Surcharge d'opérateurs
-    friend ostream& operator << ( ostream &flux, const Selection &r);
-    // Mode d'emploi : Overcharged of operator <<, to post a rectangle.
+    string Display();
+    // Mode d'emploi : Method that return the string to describe
+    //                 the figure.
 
+    string ToString();
+    // Mode d'emploi : Method that return the string to describe
+    //                 the figure.
+    
 //-------------------------------------------- Constructeurs - destructeur
     Selection ( string name, Point a, Point b, map<string,Figure *> &myMap );
     // Mode d'emploi : Selection's constructor.

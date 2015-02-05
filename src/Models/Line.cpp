@@ -29,21 +29,21 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 void Line::Move(const signed long &dx, const signed long &dy)
-// 	Algorithme : Use of Move point's methode.
-	{
-	pointA.Move(dx, dy);
-	pointB.Move(dx, dy);
-	}
+// Algorithme : Call to point's Move method.
+{
+    pointA.Move(dx, dy);
+    pointB.Move(dx, dy);
+}
 //----- Fin de Méthode
 
 bool Line::IsInSelection(const Point &a, const Point &b) 
-// 	Algorithme : Use of IsInSelection point's methode.
-	{
-		if (pointA.IsInSelection(a, b) && pointB.IsInSelection(a, b))
-			return true;
-		else
-	    	return false;
-	}
+// Algorithme : Call to point's IsInSelection method.
+{
+    if (pointA.IsInSelection(a, b) && pointB.IsInSelection(a, b))
+        return true;
+    else
+        return false;
+}
 //----- Fin de Méthode
 
 string Line::ToString()
@@ -52,36 +52,37 @@ string Line::ToString()
 {   
     stringstream sstm;
     sstm << "L " << name << " " 
-    	 <<	pointA.GetX() << " " << pointA.GetY() 
-    	 << " " << pointB.GetX() << " " 
-    	 << pointB.GetY() << "\r\n";
+         << pointA.GetX() << " " << pointA.GetY() 
+         << " " << pointB.GetX() << " " 
+         << pointB.GetY() << "\r\n";
     string result = sstm.str();
     return result;
 }
 //----- Fin de Méthode
 
-//------------------------------------------------- Surcharge d'opérateurs
-ostream& operator << ( ostream &flux, const Line &l )
-{
+string Line::Display()
+// Algorithme : Use of a stringstream to create a string to describe a line.
+{   
+    stringstream flux;
     flux << "# Line ";
-    flux << l.name;
+    flux << name;
     flux << " passing by (";
-    flux << l.pointA.GetX();
+    flux << pointA.GetX();
     flux << ", ";
-    flux << l.pointA.GetY();
+    flux << pointA.GetY();
     flux << ") and (";
-    flux << l.pointB.GetX();
+    flux << pointB.GetX();
     flux << ", ";
-    flux << l.pointB.GetY();
+    flux << pointB.GetY();
     flux << ") has been created.\r\n";
-    return flux;
-} //----- Fin de operator <<
-
+    return (string)flux.str();
+}
+//----- Fin de Méthode
 
 //-------------------------------------------- Constructeurs - destructeur
 Line::Line ( string name, Point a, Point b ) : Figure(name), pointA(a), pointB(b)
+// Algorithme : Call to Figure's constructor and creation of two Points.
 {
-    cout << *this;
 #ifdef MAP
     cout << "Appel au constructeur de <Line>" << endl;
 #endif

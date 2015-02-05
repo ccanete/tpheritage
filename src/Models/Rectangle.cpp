@@ -28,81 +28,62 @@ using namespace std;
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
-// type Rectangle::Méthode ( liste de paramètres )
-// Algorithme :
-//
-//{
-//} //----- Fin de Méthode
-
 void Rectangle::Move(const signed long &dx, const signed long &dy)
-// 	Algorithme :
-//				
-	{
-	pointA.Move(dx, dy);
-	pointB.Move(dx, dy);
-	}
+// Algorithme : Call to point's Move method.    
+    {
+    pointA.Move(dx, dy);
+    pointB.Move(dx, dy);
+    }
 //----- Fin de Méthode
 
 bool Rectangle::IsInSelection(const Point &a, const Point &b) 
-// 	Algorithme :
-//	
-	{
-		if (pointA.IsInSelection(a, b) && pointB.IsInSelection(a, b))
-			return true;
-		else
-	    	return false;
-	}
+// Algorithme : Call to point's IsInSelection method.
+    {
+        if (pointA.IsInSelection(a, b) && pointB.IsInSelection(a, b))
+            return true;
+        else
+            return false;
+    }
 //----- Fin de Méthode
 
 string Rectangle::ToString()
-// Algorithme :
-//
+// Algorithme : Use of a stringstream to create a string equals to
+//              input user's one.
 {   
     stringstream sstm;
     sstm << "R " << name << " " 
-    	 <<	pointA.GetX() << " " << pointA.GetY() 
-    	 << " " << pointB.GetX() << " " 
-    	 << pointB.GetY() << "\r\n";
+         << pointA.GetX() << " " << pointA.GetY() 
+         << " " << pointB.GetX() << " " 
+         << pointB.GetY() << "\r\n";
     string result = sstm.str();
     return result;
 }
 //----- Fin de Méthode
 
-//------------------------------------------------- Surcharge d'opérateurs
-ostream& operator << ( ostream &flux, const Rectangle &r )
-// Algorithme :
-//
-{
+string Rectangle::Display()
+// Algorithme : Use of a stringstream to create a string to describe a rectangle.
+{   
+    stringstream flux;
     flux << "# Rectangle ";
-    flux << r.name;
+    flux << name;
     flux << " formed by (";
-    flux << r.pointA.GetX();
+    flux << pointA.GetX();
     flux << ", ";
-    flux << r.pointA.GetY();
+    flux << pointA.GetY();
     flux << "), lower left vertice, and (";
-    flux << r.pointB.GetX();
+    flux << pointB.GetX();
     flux << ", ";
-    flux << r.pointB.GetY();
+    flux << pointB.GetY();
     flux << "), upper high vertice has been created.\r\n";
-    return flux;
-} //----- Fin de operator <<
+    return (string)flux.str();
+}
+//----- Fin de Méthode
 
 //-------------------------------------------- Constructeurs - destructeur
-/*Rectangle::Rectangle ( const Rectangle & unRectangle )
-// Algorithme :
-//
-{
-#ifdef MAP
-    cout << "Appel au constructeur de copie de <Rectangle>" << endl;
-#endif
-} //----- Fin de Rectangle (constructeur de copie)
-*/
-
 Rectangle::Rectangle ( string name, Point a, Point b ) : Figure(name), pointA(a), pointB(b)
-// Algorithme :
-//
+// Algorithme : Call to Figure's constructor and creation of two Points.
+
 {
-    cout << *this;
 #ifdef MAP
     cout << "Appel au constructeur de <Rectangle>" << endl;
 #endif
@@ -110,8 +91,6 @@ Rectangle::Rectangle ( string name, Point a, Point b ) : Figure(name), pointA(a)
 
 
 Rectangle::~Rectangle ( )
-// Algorithme :
-//
 {
 #ifdef MAP
     cout << "Appel au destructeur de <Rectangle>" << endl;

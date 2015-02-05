@@ -29,10 +29,10 @@ class Rectangle : public Figure
 public:
 //----------------------------------------------------- Méthodes publiques
     void Move(const signed long &dx, const signed long &dy);
-    // Mode d'emploi : Methode that move a point by dx over x-axis and by 
+    // Mode d'emploi : Methode that move the rectangle by dx over x-axis and by 
     //                 dy over y-axis.
     // @param : Value that will be incremented over x-axis
-    // @param : Value that will be incremented over y-axis
+    // @param : Value that will be incremented over y-axis
 
     bool IsInSelection(const Point &a, const Point &b);
     // Mode d'emploi : Methode that verify if the rectangle belong to a
@@ -43,9 +43,9 @@ public:
     string ToString();
     // Mode d'emploi : Methode that return the string used to create it.
 
-//------------------------------------------------- Surcharge d'opérateurs
-    friend ostream& operator << ( ostream &flux, const Rectangle &r);
-    // Mode d'emploi : Overcharged of operator <<, to post a rectangle.
+    string Display();
+    // Mode d'emploi : Method that return the string to describe
+    //                 the figure.
 
 //-------------------------------------------- Constructeurs - destructeur
     Rectangle ( string name, Point a, Point b );
