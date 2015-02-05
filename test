@@ -1,1 +1,5 @@
-C test 2 4 6
+L prova 2 4 1 2
+C pest1 2 3 1
+#
+R pest2 3 1 10 20
+C test 2 3 1

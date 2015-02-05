@@ -48,7 +48,6 @@ ostream& operator << ( ostream &flux, const Selection &r )
 // Algorithme :
 //
 {
-    cout << "OK\r\n";
     flux << "# Selection ";
     flux << r.name;
     flux << " formed by (";

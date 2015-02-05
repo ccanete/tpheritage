@@ -63,7 +63,6 @@ string Line::ToString()
 //------------------------------------------------- Surcharge d'opérateurs
 ostream& operator << ( ostream &flux, const Line &l )
 {
-    cout << "OK\r\n";
     flux << "# Line ";
     flux << l.name;
     flux << " passing by (";

@@ -68,7 +68,6 @@ ostream& operator << ( ostream &flux, const Circle &c )
 // Algorithme :
 //
 {
-    cout << "OK\r\n";
     flux << "# Circle ";
     flux << c.name;
     flux << " of center (";

@@ -37,7 +37,7 @@ string Figure::GetName()
 // Algorithme :
 //
 {
-    return "";
+    return name;
 }
 //----- Fin de Méthode
 

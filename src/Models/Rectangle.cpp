@@ -73,7 +73,6 @@ ostream& operator << ( ostream &flux, const Rectangle &r )
 // Algorithme :
 //
 {
-    cout << "OK\r\n";
     flux << "# Rectangle ";
     flux << r.name;
     flux << " formed by (";
