@@ -29,14 +29,8 @@ class Circle : public Figure
 
 public:
 //----------------------------------------------------- Méthodes publiques
-    // type Méthode ( liste de paramètres );
-    // Manual :
-    //
-    // Contrat :
-    //
-
     void Move(const signed long &dx, const signed long &dy);
-    // Manual : Methode that move a point by dx over x-axis and by 
+    // Manual : Methode that move the circle by dx over x-axis and by 
     //                 dy over y-axis.
     // @param : Value that will be incremented over x-axis
     // @param : Value that will be incremented over y-axis

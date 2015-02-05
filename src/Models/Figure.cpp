@@ -27,14 +27,8 @@ using namespace std;
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
-// type Figure::Méthode ( liste de paramètres )
-// Algorithme :
-//
-//{
-//} //----- Fin de Méthode
-
 string Figure::GetName()
-// Algorithme :
+// Algorithme : Return figure's name.
 //
 {
     return name;
@@ -43,7 +37,7 @@ string Figure::GetName()
 
 //------------------------------------------------- Surcharge d'opérateurs
 bool Figure::operator < ( const Figure &f )
-// Algorithme :
+// Algorithme : 
 //
 {
 	return name > f.name;
@@ -51,19 +45,9 @@ bool Figure::operator < ( const Figure &f )
 
 
 //-------------------------------------------- Constructeurs - destructeur
-Figure::Figure ( const Figure & unFigure )
-// Algorithme :
-//
-{
-#ifdef MAP
-    cout << "Appel au constructeur de copie de <Figure>" << endl;
-#endif
-} //----- Fin de Figure (constructeur de copie)
-
-
 Figure::Figure ( string name )
-// Algorithme :
-//
+// Algorithme : Save of figure's name.
+// @param : Name.
 {
 this->name = name;
 #ifdef MAP
@@ -73,8 +57,6 @@ this->name = name;
 
 
 Figure::~Figure ( )
-// Algorithme :
-//
 {
 #ifdef MAP
     cout << "Appel au destructeur de <Figure>" << endl;

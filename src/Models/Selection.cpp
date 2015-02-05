@@ -28,15 +28,8 @@ using namespace std;
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
-// type Selection::Méthode ( liste de paramètres )
-// Algorithme :
-//
-//{
-//} //----- Fin de Méthode
-
 void Selection::Move(const signed long &dx, const signed long &dy)
-// 	Algorithme :
-//				
+// Algorithme : Call to point's Move method.    	
 	{
 	pointA.Move(dx, dy);
 	pointB.Move(dx, dy);
@@ -64,8 +57,8 @@ ostream& operator << ( ostream &flux, const Selection &r )
 
 //-------------------------------------------- Constructeurs - destructeur
 Selection::Selection ( string n, Point a, Point b, map<string,Figure *> &myMap ) : name(n), pointA(a), pointB(b)
-// Algorithme :
-//
+// Algorithme : Save selection's name, list of figure belongs to selection
+//              (map) and creation of two Points.
 {
     map<string,Figure *>::iterator it;
     cout << *this;
@@ -87,8 +80,6 @@ Selection::Selection ( string n, Point a, Point b, map<string,Figure *> &myMap )
 
 
 Selection::~Selection ( )
-// Algorithme :
-//
 {
 #ifdef MAP
     cout << "Appel au destructeur de <Selection>" << endl;

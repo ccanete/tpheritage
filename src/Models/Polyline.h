@@ -29,11 +29,6 @@ class Polyline : public Figure
 
 public:
 //----------------------------------------------------- Méthodes publiques
-    // type Méthode ( liste de paramètres );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
     void Move(const signed long &dx, const signed long &dy);
     // Mode d'emploi : Methode that move every point by dx over x-axis and 
     //                 by dy over y-axis.

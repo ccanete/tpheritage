@@ -34,7 +34,7 @@ class Selection
 public:
 //----------------------------------------------------- Méthodes publiques
     void Move(const signed long &dx, const signed long &dy);
-    // Mode d'emploi : Methode that move a point by dx over x-axis and by 
+    // Mode d'emploi : Methode that move the selection by dx over x-axis and by 
     //                 dy over y-axis.
     // @param : Value that will be incremented over x-axis
     // @param : Value that will be incremented over y-axis
