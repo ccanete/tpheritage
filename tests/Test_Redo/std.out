@@ -1,0 +1,10 @@
+OK
+# Rectangle test of coordinates (1, 3) and (2, 6) has been created.
+OK
+# The last action has been canceled.
+
+OK
+# The last action has been restored.
+R test 1 3 2 6
+
+# The program is being closed.

@@ -24,7 +24,7 @@ int main()
         if (out == "# The program is being closed.\r\n")
         {
             cout << out;
-            break;
+            return 0;
         }
         else
         {

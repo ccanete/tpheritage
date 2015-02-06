@@ -1,0 +1,12 @@
+OK
+# The file test has been loaded.
+OK
+# Rectangle test1 of coordinates (1, 2) and (2, 4) has been created.
+OK
+# Line test2 passing by (2, 4) and (5, 6) has been created.
+OK
+# Selection test of coordinates (1, 2) and (2, 4) has been created. 
+R test1 1 2 2 4
+L test2 2 4 5 6
+
+# The program is being closed.
