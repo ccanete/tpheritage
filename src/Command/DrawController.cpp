@@ -159,8 +159,9 @@ string DrawController::addFigure( char cmd , char * params)
 	long radius;
 	char cleanParams [100];
 	if (params != NULL)
-	strcpy(cleanParams,params);
-
+	{
+		strcpy(cleanParams,params);
+	}
 
 	if (cmd == 'C')
 	{
@@ -184,43 +185,15 @@ string DrawController::addFigure( char cmd , char * params)
 		}
 		else
 		{
-			coordX1 = strtol(secondEntry, NULL, 10);
-			coordY1 = strtol(thirdEntry, NULL, 10);
-			radius = strtol(fourthEntry, NULL, 10);
-
 			// Figure creation method
 			
 			AddCommand newFig (&mapFigure, 'C', cleanParams);
 			newFig.Do();
 			return "OK\r\n" + mapFigure.find(firstEntry)->second->Display();
 		}
-		
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+		return ZERO;
 	}
+
 	if (cmd == 'R')
 	{
 		firstEntry = strtok(params, " ");
@@ -243,40 +216,15 @@ string DrawController::addFigure( char cmd , char * params)
 		}
 		else
 		{
-			coordX1 = strtol(secondEntry, NULL, 10);
-			coordY1 = strtol(thirdEntry, NULL, 10);
-			coordX2 = strtol(fourthEntry, NULL, 10);
-			coordY2 = strtol(fifthEntry, NULL, 10);
-
 			// Figure creation method
 			
 			AddCommand newFig (&mapFigure, 'R', cleanParams);
 			newFig.Do();
 			return "OK\r\n" + mapFigure.find(firstEntry)->second->Display();
 		}
-		
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+		return ZERO;
 	}
+
 	if (cmd == 'L')
 	{
 		firstEntry = strtok(params, " ");
@@ -299,7 +247,6 @@ string DrawController::addFigure( char cmd , char * params)
 		}
 		else
 		{
-
 			// Figure creation method
 			coordX1 = strtol(secondEntry, NULL, 10);
 			coordY1 = strtol(thirdEntry, NULL, 10);
@@ -309,31 +256,9 @@ string DrawController::addFigure( char cmd , char * params)
 			newFig.Do();
 			return "OK\r\n" + mapFigure.find(firstEntry)->second->Display();
 		}
-		
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+		return ZERO;
 	}
+
 	if (cmd == 'P')
 	{
 		int i = ZERO;
@@ -367,30 +292,6 @@ string DrawController::addFigure( char cmd , char * params)
 		newFig.Do();
 		myVector.clear();
 		return "OK\r\n" + mapFigure.find(firstEntry)->second->Display();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 	}
 }
@@ -426,35 +327,6 @@ string DrawController::createSelection( char * params )
 		Selection test = Selection(firstEntry, Point(coordX1, coordY1), Point(coordX2, coordY2), mapFigure);
 		mapSelection.insert(std::pair<string,Selection>((string)firstEntry, test));
 		return "OK\r\n" + mapSelection.find((string)firstEntry)->second.Display() + test.ToString();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	}
 }
 
@@ -462,6 +334,8 @@ string DrawController::deleteFigures( char * params )
 {
 	// SEARCHING DOUBLES 
 	vector<string> v;
+	vector<string> selection;
+	vector<string> figures;
 	char * firstEntry = strtok(params, " ");
 	if (firstEntry == NULL)
 	{
@@ -477,9 +351,12 @@ string DrawController::deleteFigures( char * params )
 		v.push_back(firstEntry);
 		i++;
 	}
+
+	//sort the elements to delete
 	sort( v.begin(), v.end() );
  	vector<string>::iterator it;
 
+ 	//check is there is no double
 	if ( i > 0)
 	{
 		i = 0;
@@ -492,6 +369,8 @@ string DrawController::deleteFigures( char * params )
 	    	} 
 	    }
 	}
+
+	//check if there is a non-existant element
 	i = 0;
 	for (it=v.begin(); it != v.end(); it++)
     {
@@ -502,7 +381,11 @@ string DrawController::deleteFigures( char * params )
     	}
     }
 
-    // DELETE ELEMENTS 
+    // SYNTAXE IS OKEY, LET'S GO
+
+    AddCommand newFig (&mapFigure, 'L', cleanParams);
+	newFig.Do();
+
     map<string, Selection *>::iterator itSel;
     map<string, Figure *>::iterator itFig;
     /*for (it=v.begin(); it != v.end() - ONE; it++)
@@ -518,34 +401,6 @@ string DrawController::deleteFigures( char * params )
     	}
     }*/
     return "";
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }
 
@@ -576,29 +431,6 @@ string DrawController::list()
 		cout << it->second->ToString();	
 	}
 	return "";
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
 
 string DrawController::undo()
@@ -686,37 +518,6 @@ string DrawController::loadFigures( char * params )
 	commandsListUndo.push(ldCmd);
 	file.close();
     return "OK\r\n";
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
 
 string DrawController::saveFigures( char * params )
