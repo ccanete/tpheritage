@@ -1,52 +1,54 @@
 /*************************************************************************
-                           MoveCommand  -  description
+                           ClearCommand  -  description
                              -------------------
     début                : ${date}
     copyright            : (C) ${year} par ${user}
 *************************************************************************/
 
-//---------- Interface de la classe <MoveCommand> (fichier ${file_name}) ------
-#if ! defined ( MOVECOMMAND_H )
-#define MOVECOMMAND_H
+//---------- Interface de la classe <ClearCommand> (fichier ${file_name}) ------
+#if ! defined ( CLEARCOMMAND_H )
+#define CLEARCOMMAND_H
 
 //--------------------------------------------------- Interfaces utilisées
 #include "Command.h"
 #include "../Models/Figure.h"
-#include "../Models/Selection.h"
 //------------------------------------------------------------- Constantes 
 
 //------------------------------------------------------------------ Types 
 
 //------------------------------------------------------------------------ 
-// Rôle de la classe <MoveCommand>
+// Rôle de la classe <ClearCommand>
 //
 //
 //------------------------------------------------------------------------ 
 
-class MoveCommand : public Command
+class ClearCommand : public Command
 {
 //----------------------------------------------------------------- PUBLIC
 
 public:
 
-    MoveCommand (Figure* figure, long dx, long dy);
-
-    MoveCommand (Selection* selection, long dx, long dy);
+    ClearCommand (map <string, Figure *> * mapFigure);
+    /**
+     * @constructor
+     * @param figure The objet that will Remove
+     * @param dx Delta x
+     * @param dy Delta y
+     */
 
     virtual bool Do();
 
     virtual bool Undo();
 
-    virtual ~MoveCommand ( );
+    virtual ~ClearCommand ( );
 
 
 private:
 //------------------------------------------------------- Méthodes privées
-    list<Figure *> myList;
-    long dx, dy;
-
+    vector<Figure*> myVector;
+    map <string, Figure *> * myMapFigure;
 };
 
-//----------------------------------------- Types dépendants de <MoveCommand>
+//----------------------------------------- Types dépendants de <ClearCommand>
 
-#endif // MOVECOMMAND_H
+#endif // CLEARCOMMAND_H

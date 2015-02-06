@@ -12,13 +12,14 @@
 //--------------------------------------------------- Interfaces utilisées
 #include <list>
 #include <map>
+#include <vector>
 
 using namespace std;
 
 #include "Figure.h"
 #include "Point.h"
 //------------------------------------------------------------- Constantes 
-
+#define ONE 1
 //------------------------------------------------------------------ Types 
 
 //------------------------------------------------------------------------ 
@@ -47,6 +48,13 @@ public:
     // Mode d'emploi : Method that return the string to describe
     //                 the figure.
     
+    string ListElements();
+    // Mode d'emploi : Method that return the string to list
+    //                 selection's elements.
+
+    list<Figure *> ListFigure();
+    // Mode d'emploi : Method that return a list containing
+    //                 selection's elements.
 //-------------------------------------------- Constructeurs - destructeur
     Selection ( string name, Point a, Point b, map<string,Figure *> &myMap );
     // Mode d'emploi : Selection's constructor.

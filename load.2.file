@@ -1,0 +1,9 @@
+C Cercle1 10 10 100
+C Cercle2 100 100 100
+L Ligne1 10 10 20 20
+L Ligne2 1000 1000 10 1
+PL PolyLigne1 1000 1000 10 1 
+PL PolyLigne2 1 2 12 2 12 13 1 13 1 2 10 10 
+R Rectangle1 1 2 12 13
+R Rectangle2 1 2 12 13
+R Rectangle3 10 20 12 13

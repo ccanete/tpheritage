@@ -6,11 +6,14 @@
 *************************************************************************/
 
 //---------- Interface de la classe <Command> (fichier ${file_name}) ------
-#if ! defined ( Command_H )
-#define Command_H
+#if ! defined ( COMMAND_H )
+#define COMMAND_H
 
+//--------------------------------------------------- Interfaces utilisées
 #include <iostream>
-    
+#include <vector>
+#include <fstream>
+
 #include "../Models/Figure.h"
 #include "../Models/Polyline.h"
 #include "../Models/Point.h"
@@ -18,9 +21,6 @@
 #include "../Models/Rectangle.h"
 #include "../Models/Line.h"
 #include "../Models/Selection.h"
-
-//--------------------------------------------------- Interfaces utilisées
-
 //------------------------------------------------------------- Constantes 
 
 //------------------------------------------------------------------ Types 
@@ -68,4 +68,4 @@ private:
 
 //----------------------------------------- Types dépendants de <Command>
 
-#endif // Command_H
+#endif // COMMAND_H

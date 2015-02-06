@@ -6,24 +6,12 @@
 *************************************************************************/
 
 //---------- Interface de la classe <LoadCommand> (fichier LoadCommand.h) ------
-#if ! defined ( LoadCommand_H )
-#define LoadCommand_H
+#if ! defined ( LOADCOMMAND_H )
+#define LOADCOMMAND_H
 
-#include <fstream>
-#include <vector>
-
+//--------------------------------------------------- Interfaces utilisées
 #include "Command.h"
 #include "AddCommand.h"
-
-#include "../Models/Figure.h"
-#include "../Models/Polyline.h"
-#include "../Models/Point.h"
-#include "../Models/Circle.h"
-#include "../Models/Rectangle.h"
-#include "../Models/Line.h"
-#include "../Models/Selection.h"
-//--------------------------------------------------- Interfaces utilisées
-
 //------------------------------------------------------------- Constantes 
 
 //------------------------------------------------------------------ Types 
@@ -40,7 +28,7 @@ class LoadCommand : public Command
 
 public:
 
-    LoadCommand (map <string, Figure *> * mapFigure, ifstream &file);
+    LoadCommand (map <string, Figure *> * mapFigure, map <string, Selection *> * mapSelection, ifstream &file);
     // Mode d'emploi :
     //
     // Contrat :
@@ -71,7 +59,7 @@ protected:
 
 private:
 //------------------------------------------------------- Attributs privés
-    map <string, Figure *> * myMapFigure;
+    map <string, Selection *> * myMapSelection;
     vector<Command *> myCommands;
 
 //---------------------------------------------------------- Classes amies
@@ -83,4 +71,4 @@ private:
 };
 
 
-#endif // LoadCommand_H
+#endif // LOADCOMMAND_H

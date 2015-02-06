@@ -10,7 +10,6 @@
 //---------------------------------------------------------------- INCLUDE
 
 //-------------------------------------------------------- Include système
-using namespace std;
 #include <iostream>
 
 //------------------------------------------------------ Include personnel
@@ -29,7 +28,7 @@ using namespace std;
 //----------------------------------------------------- Méthodes publiques
 
 //-------------------------------------------- Constructeurs - destructeur
-LoadCommand::LoadCommand (map <string, Figure *> * mapFigure, ifstream &file)
+LoadCommand::LoadCommand (map <string, Figure *> * mapFigure, map <string, Selection *> * mapSelection, ifstream &file)
 // Algorithme :
 //
 {
@@ -37,6 +36,7 @@ LoadCommand::LoadCommand (map <string, Figure *> * mapFigure, ifstream &file)
     long radius;
     char * command, * text;
     string read;
+    myMapSelection = mapSelection;
 
     while (getline(file, read))
     {			
@@ -50,7 +50,7 @@ LoadCommand::LoadCommand (map <string, Figure *> * mapFigure, ifstream &file)
     		command = strtok(text ," ");
 			continue;
 		}
-		myCommands.push_back(new AddCommand(mapFigure, *command, strtok(NULL, "\r")) );
+		myCommands.push_back(new AddCommand(mapFigure, mapSelection, *command, strtok(NULL, "\r")) );
     }
 	#ifdef MAP
 		cout << "Appel au constructeur de <LoadCommand>" << endl;
@@ -59,10 +59,23 @@ LoadCommand::LoadCommand (map <string, Figure *> * mapFigure, ifstream &file)
 
 bool LoadCommand::Do ()
 {
-	for (vector<Command *>::iterator it = myCommands.begin(); it != myCommands.end(); it++)
+	vector<Command *>::iterator it;
+	for (it = myCommands.begin(); it != myCommands.end(); it++)
 	{
-		(*it)->Do();
+		if (!(*it)->Do())
+		{
+			break;
+		}
 	}
+	if (it != myCommands.end())
+	{
+		for (; it != myCommands.begin(); it--)
+		{
+			(*it)->Undo();
+		}
+		return false;
+	}
+
 	#ifdef MAP
 	    cout << "Create object" << endl;
 	#endif

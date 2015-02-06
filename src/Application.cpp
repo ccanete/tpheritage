@@ -18,6 +18,8 @@ int main()
 	string commandInput;
 	while (getline(cin, commandInput))
 	{
+        if (commandInput == "")
+            continue;
         string out = drawController.ExecuteCommand(commandInput);
         if (out == "# The program is being closed.\r\n")
         {

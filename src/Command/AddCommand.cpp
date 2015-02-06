@@ -10,7 +10,6 @@
 //---------------------------------------------------------------- INCLUDE
 
 //-------------------------------------------------------- Include système
-using namespace std;
 #include <iostream>
 
 //------------------------------------------------------ Include personnel
@@ -29,16 +28,20 @@ using namespace std;
 //----------------------------------------------------- Méthodes publiques
 
 //-------------------------------------------- Constructeurs - destructeur
-AddCommand::AddCommand (map <string, Figure *> * mapFigure, char objType, char * params)
+AddCommand::AddCommand (map <string, Figure *> * mapFigure, map <string, Selection *> * mapSelection, char objType, char * params)
 // Algorithme :
 //
 {
 	#ifdef MAP
 	    cout << "Appel au constructeur de <AddCommand>" << endl;
 	#endif
+    char * firstEntry, * secondEntry, * thirdEntry, * fourthEntry, * fifthEntry;
+    signed long coordX1, coordX2, coordY1, coordY2;
+    long radius;
 	myObjType = objType;
 	myParams = params;
 	myMapFigure = mapFigure;
+	myMapSelection = mapSelection;
 
 
 	if (myObjType == 'C')
@@ -124,8 +127,11 @@ bool AddCommand::Do ()
 	#ifdef MAP
 	    cout << "Create object" << endl;
 	#endif
-
-	myMapFigure->insert ( std::pair<string,Figure *>(name,newFigure) );
+    if ( myMapSelection->find(name) != myMapSelection->end())
+    {
+    	return false;
+    }
+	myMapFigure->insert(std::pair<string,Figure *>(name,newFigure));
 
 	return true;
 
@@ -136,8 +142,8 @@ bool AddCommand::Undo ()
 	#ifdef MAP
 	    cout << "Unmove object" << endl;
 	#endif
+	myMapFigure->erase(name);
 
-	//figure_->Move(-dx_, -dy_);
 	return true;
 
 } //----- Fin de Undo
@@ -146,6 +152,7 @@ AddCommand::~AddCommand ( )
 // Algorithme :
 //
 {
+	delete newFigure;
 #ifdef MAP
     cout << "Appel au destructeur de <AddCommand>" << endl;
 #endif

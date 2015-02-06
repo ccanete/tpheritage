@@ -10,7 +10,6 @@
 //---------------------------------------------------------------- INCLUDE
 
 //-------------------------------------------------------- Include système
-using namespace std;
 #include <iostream>
 
 //------------------------------------------------------ Include personnel
@@ -20,8 +19,18 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
-RemoveCommand::RemoveCommand (Figure* figure, long dx, long dy) : figure_(figure), dx_(dx), dy_(dy)
+RemoveCommand::RemoveCommand (map <string, Figure *> * mapFigure, map <string, Selection *> * mapSelection,
+							  char * params)
 {
+	myMapFigure = mapFigure;
+	myMapSelection = mapSelection;
+	char * figures = strtok(params, " ");
+	while (figures != NULL)
+	{
+		myMapBackup.insert(std::pair<string, Figure *>(mapFigure->find(figures)->first,
+						   mapFigure->find(figures)->second));
+		figures = strtok(NULL, " ");
+	}
 	#ifdef MAP
     	cout << "Appel au constructeur de <RemoveCommand>" << endl;
 	#endif
@@ -29,22 +38,41 @@ RemoveCommand::RemoveCommand (Figure* figure, long dx, long dy) : figure_(figure
 
 bool RemoveCommand::Do ()
 {
+	for (std::map<string, Figure *>::iterator it = myMapBackup.begin(); it != myMapBackup.end(); it++)
+	{
+		myMapFigure->erase(it->first);
+	}
 	#ifdef MAP
 	    cout << "Remove object" << endl;
 	#endif
 
-	//figure_->Remove(dx_,dy_);
 	return true;
 
 } //----- Fin de RemoveCommand
 
 bool RemoveCommand::Undo ()
 {
+	std::map<string, Figure *>::iterator it;
+	for (it = myMapBackup.begin(); it != myMapBackup.end(); it++)
+	{
+		if ( myMapSelection->find(it->second->GetName()) != myMapSelection->end() )
+		{
+			break;
+		}
+		myMapFigure->insert(std::pair<string, Figure *>(it->first, it->second));
+	}
+	if (it != myMapBackup.end())
+	{
+		for (; it != myMapBackup.begin(); it--)
+		{
+			myMapFigure->erase(it->first);
+		}
+		return false;
+	}
 	#ifdef MAP
 	    cout << "UnRemove object" << endl;
 	#endif
 
-	//figure_->Remove(-dx_,-dy_);
 	return true;
 
 } //----- Fin de RemoveCommand
@@ -53,6 +81,10 @@ RemoveCommand::~RemoveCommand ( )
 // Algorithme :
 //
 {
+	for (std::map<string, Figure *>::iterator it = myMapBackup.begin(); it != myMapBackup.end(); it++)
+	{
+		delete it->second;
+	}
 #ifdef MAP
     cout << "Appel au destructeur de <RemoveCommand>" << endl;
 #endif

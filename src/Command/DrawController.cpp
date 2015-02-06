@@ -37,6 +37,11 @@ DrawController::DrawController ( )
 
 DrawController::~DrawController ( )
 // Algorithme :
+
+
+
+
+
 //
 {
 #ifdef MAP
@@ -136,7 +141,7 @@ string DrawController::ExecuteCommand ( string commandInput )
 	/*----------COMMAND CLEAR----------*/
 	else if (!strcmp(command,"CLEAR"))
 	{
-		//return clear();
+		return clear();
 	}
 	/*----------COMMAND EXIT----------*/
 	else if (!strcmp(command,"EXIT"))
@@ -148,7 +153,6 @@ string DrawController::ExecuteCommand ( string commandInput )
 	{
 		return "ERR\r\n# Unknown command\r\n";
 	}
-
 } //----- Fin de Méthode
 
 
@@ -161,20 +165,23 @@ string DrawController::addFigure( char cmd , char * params)
 	if (params != NULL)
 	strcpy(cleanParams,params);
 
+	firstEntry = strtok(params, " ");
+	if ( firstEntry == NULL)
+	{
+		return "ERR\r\n# Invalide name.\r\n";
+	}
+	else if ( (mapFigure.find(firstEntry) != mapFigure.end()) || (mapSelection.find(firstEntry) != mapSelection.end()) )
+	{
+		return "ERR\r\n# Figure " + (string)firstEntry + " is already existing\r\n";
+	}
 
 	if (cmd == 'C')
 	{
-
-        firstEntry = strtok(params, " ");
 		secondEntry = strtok(NULL, " "); 
 		thirdEntry = strtok(NULL, " ");
 		fourthEntry = strtok(NULL, " ");
 
-		if ( firstEntry == NULL)
-		{
-			return "ERR\r\n# Invalide name.\r\n";
-		}
-		else if (secondEntry == NULL || thirdEntry == NULL)
+		if (secondEntry == NULL || thirdEntry == NULL)
 		{
 			return "ERR\r\n# Invalide center.\r\n";
 		}
@@ -190,50 +197,31 @@ string DrawController::addFigure( char cmd , char * params)
 
 			// Figure creation method
 			
-			AddCommand newFig (&mapFigure, 'C', cleanParams);
-			newFig.Do();
+			AddCommand * addCmd = new AddCommand(&mapFigure, &mapSelection, 'C', cleanParams);
+			addCmd->Do();
+
+			if (commandsListUndo.size() >= 20)
+			{
+				delete [] commandsListUndo.back();
+				commandsListUndo.pop_back();
+			}
+			commandsListUndo.push_front(addCmd);
+			while (!commandsListRedo.empty())
+			{
+				delete commandsListRedo.top();
+				commandsListRedo.pop();
+			}
 			return "OK\r\n" + mapFigure.find(firstEntry)->second->Display();
 		}
-		
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	}
 	if (cmd == 'R')
 	{
-		firstEntry = strtok(params, " ");
 		secondEntry = strtok(NULL, " "); 
 		thirdEntry = strtok(NULL, " ");
 		fourthEntry = strtok(NULL, " ");
 		fifthEntry = strtok(NULL, " ");
 
-		if ( firstEntry == NULL)
-		{
-			return "ERR\r\n# Invalide name.\r\n";
-		}
-		else if (secondEntry == NULL || thirdEntry == NULL)
+		if (secondEntry == NULL || thirdEntry == NULL)
 		{
 			return "ERR\r\n# Invalide first point.\r\n";
 		}
@@ -250,46 +238,30 @@ string DrawController::addFigure( char cmd , char * params)
 
 			// Figure creation method
 			
-			AddCommand newFig (&mapFigure, 'R', cleanParams);
-			newFig.Do();
+			AddCommand * addCmd = new AddCommand(&mapFigure, &mapSelection, 'R', cleanParams);
+			addCmd->Do();
+			if (commandsListUndo.size() >= 20)
+			{
+				delete [] commandsListUndo.back();
+				commandsListUndo.pop_back();
+			}
+			commandsListUndo.push_front(addCmd);
+			while (!commandsListRedo.empty())
+			{
+				delete commandsListRedo.top();
+				commandsListRedo.pop();
+			}
 			return "OK\r\n" + mapFigure.find(firstEntry)->second->Display();
 		}
-		
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	}
 	if (cmd == 'L')
 	{
-		firstEntry = strtok(params, " ");
 		secondEntry = strtok(NULL, " "); 
 		thirdEntry = strtok(NULL, " ");
 		fourthEntry = strtok(NULL, " ");
 		fifthEntry = strtok(NULL, " ");
 
-		if ( firstEntry == NULL)
-		{
-			return "ERR\r\n# Invalide name.\r\n";
-		}
-		else if (secondEntry == NULL || thirdEntry == NULL)
+		if (secondEntry == NULL || thirdEntry == NULL)
 		{
 			return "ERR\r\n# Invalide first point.\r\n";
 		}
@@ -305,44 +277,26 @@ string DrawController::addFigure( char cmd , char * params)
 			coordY1 = strtol(thirdEntry, NULL, 10);
 			coordX2 = strtol(fourthEntry, NULL, 10);
 			coordY2 = strtol(fifthEntry, NULL, 10);
-			AddCommand newFig (&mapFigure, 'L', cleanParams);
-			newFig.Do();
+			AddCommand * addCmd = new AddCommand(&mapFigure, &mapSelection, 'L', cleanParams);
+			addCmd->Do();
+			if (commandsListUndo.size() >= 20)
+			{
+				delete [] commandsListUndo.back();
+				commandsListUndo.pop_back();
+			}
+			commandsListUndo.push_front(addCmd);
+			while (!commandsListRedo.empty())
+			{
+				delete commandsListRedo.top();
+				commandsListRedo.pop();
+			}
 			return "OK\r\n" + mapFigure.find(firstEntry)->second->Display();
 		}
-		
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	}
 	if (cmd == 'P')
 	{
 		int i = ZERO;
 		vector<Point> myVector;
-		firstEntry = strtok(params, " ");
-		if (firstEntry == NULL)
-		{
-			return "ERR\r\n# Invalide name.\r\n";
-		}
 
 		while (ONE)
 		{
@@ -363,35 +317,24 @@ string DrawController::addFigure( char cmd , char * params)
 
 		// Figure creation method
 		
-		AddCommand newFig (&mapFigure, 'P', cleanParams);
-		newFig.Do();
-		myVector.clear();
+		AddCommand * addCmd = new AddCommand(&mapFigure, &mapSelection, 'P', cleanParams);
+		addCmd->Do();
+		if (commandsListUndo.size() >= 20)
+		{
+			delete [] commandsListUndo.back();
+			commandsListUndo.pop_back();
+		}
+		commandsListUndo.push_front(addCmd);
+		while (!commandsListRedo.empty())
+		{
+			delete commandsListRedo.top();
+			commandsListRedo.pop();
+		}
 		return "OK\r\n" + mapFigure.find(firstEntry)->second->Display();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	}
+	else
+	{
+		return "";
 	}
 }
 
@@ -406,6 +349,10 @@ string DrawController::createSelection( char * params )
 	if ( firstEntry == NULL)
 	{
 		return "ERR\r\n# Invalide name.\r\n";
+	}
+	else if ( (mapFigure.find(firstEntry) != mapFigure.end()) || (mapSelection.find(firstEntry) != mapSelection.end()) )
+	{
+		return "ERR\r\n# Figure " + (string)firstEntry + " is already existing\r\n";
 	}
 	else if (secondEntry == NULL || thirdEntry == NULL)
 	{
@@ -423,45 +370,17 @@ string DrawController::createSelection( char * params )
 		signed long coordY2 = strtol(fifthEntry, NULL, 10);
 
 		// Selection creation method
-		Selection test = Selection(firstEntry, Point(coordX1, coordY1), Point(coordX2, coordY2), mapFigure);
-		mapSelection.insert(std::pair<string,Selection>((string)firstEntry, test));
-		return "OK\r\n" + mapSelection.find((string)firstEntry)->second.Display() + test.ToString();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+		Selection * select = new Selection(firstEntry, Point(coordX1, coordY1), Point(coordX2, coordY2), mapFigure);
+		mapSelection.insert(std::pair<string,Selection *>((string)firstEntry, select));
+		return "OK\r\n" + mapSelection.find((string)firstEntry)->second->Display() + select->ToString();
 	}
 }
 
 string DrawController::deleteFigures( char * params )
 {
 	// SEARCHING DOUBLES 
-	vector<string> v;
+	vector<string> myVector;
+	string figures;
 	char * firstEntry = strtok(params, " ");
 	if (firstEntry == NULL)
 	{
@@ -469,21 +388,21 @@ string DrawController::deleteFigures( char * params )
 	}
 	else
 	{
-		v.push_back(firstEntry);
+		myVector.push_back(firstEntry);
 	}
 	int i = 0;
 	while ( (firstEntry = strtok(NULL, " ")) != NULL )
 	{
-		v.push_back(firstEntry);
+		myVector.push_back(firstEntry);
 		i++;
 	}
-	sort( v.begin(), v.end() );
+	sort( myVector.begin(), myVector.end() );
  	vector<string>::iterator it;
 
 	if ( i > 0)
 	{
 		i = 0;
-		for (it=v.begin(); it != v.end() - ONE; it++)
+		for (it=myVector.begin(); it != myVector.end() - ONE; it++)
 	    {
 	    	i++;
 	    	if (*it == *(it+ONE))
@@ -492,78 +411,86 @@ string DrawController::deleteFigures( char * params )
 	    	} 
 	    }
 	}
-	i = 0;
-	for (it=v.begin(); it != v.end(); it++)
-    {
-    	i++;
-    	if ( mapSelection.find(*it) == mapSelection.end() && mapFigure.find(*it) == mapFigure.end() )
-    	{
-    		return "ERR\r\n# " + *it + " doesn't exist\r\n";
-    	}
-    }
-
     // DELETE ELEMENTS 
-    map<string, Selection *>::iterator itSel;
-    map<string, Figure *>::iterator itFig;
-    /*for (it=v.begin(); it != v.end() - ONE; it++)
-    {
-    	
-    	if ( (itSel = mapSelection.find(*it)) != mapSelection.end() )
-    	{
-    		itSel->second->GetFigureVector();
-    	}
-    	else if ( (itFig = mapFigure.find(*it)) != mapFigure.end() )
-    	{
-    		itFig->second
-    	}
-    }*/
-    return "";
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	std::map<string, Selection *>::iterator itSelect;
+    for (it=myVector.begin(); it != myVector.end(); it++)
+	{
+		if ((itSelect = mapSelection.find(*it)) != mapSelection.end())
+		{
+			figures += itSelect->second->ListElements();
+			mapSelection.erase(*it);
+		}
+		else if (mapFigure.find(*it) != mapFigure.end())
+		{
+			figures += *it + " ";
+		}
+		else
+		{	
+			return "ERR\r\n# " + *it + " doesn't exist\r\n";
+		}
+	}
+    RemoveCommand * rmvCmd = new RemoveCommand(&mapFigure, &mapSelection, (char *)figures.c_str());
+	rmvCmd->Do();
+	if (commandsListUndo.size() >= 20)
+	{
+		delete [] commandsListUndo.back();
+		commandsListUndo.pop_back();
+	}
+	commandsListUndo.push_front(rmvCmd);
+	while (!commandsListRedo.empty())
+	{
+		delete commandsListRedo.top();
+		commandsListRedo.pop();
+	}
+    return "OK\r\n";
 }
 
 string DrawController::move( char * params )
 {
 	char * firstEntry = strtok(params, " ");
-	if ( mapFigure.find(firstEntry)->second == mapFigure.end()->second )
-	{
-    	return "ERR\r\n# " + (string)firstEntry + " doesn't exist\r\n";
-	}
-	Figure * figure = mapFigure.find(firstEntry)->second;
 	char * secondEntry = strtok(NULL, " "); 
 	char * thirdEntry = strtok(NULL, " ");
 	signed long coordX = strtol(secondEntry, NULL, 10);
 	signed long coordY = strtol(thirdEntry, NULL, 10);
-	MoveCommand * mvCmd = new MoveCommand(figure, coordX, coordY);
-	mvCmd->Do();
-	commandsListUndo.push(mvCmd);
+	if ( mapFigure.find(firstEntry) != mapFigure.end() )
+	{
+		Figure * figure = mapFigure.find(firstEntry)->second;
+		MoveCommand * mvCmd = new MoveCommand(figure, coordX, coordY);
+		mvCmd->Do();
+		if (commandsListUndo.size() >= 20)
+		{
+			delete [] commandsListUndo.back();
+			commandsListUndo.pop_back();
+		}
+		commandsListUndo.push_front(mvCmd);
+		while (!commandsListRedo.empty())
+		{
+			delete commandsListRedo.top();
+			commandsListRedo.pop();
+		}
+	}
+	else if ( mapSelection.find(firstEntry) != mapSelection.end() )
+	{
+		Selection * selection = mapSelection.find(firstEntry)->second;
+		MoveCommand * mvCmd = new MoveCommand(selection, coordX, coordY);
+		mvCmd->Do();
+		if (commandsListUndo.size() >= 20)
+		{
+			delete [] commandsListUndo.back();
+			commandsListUndo.pop_back();
+		}
+		commandsListUndo.push_front(mvCmd);
+		while (!commandsListRedo.empty())
+		{
+			delete commandsListRedo.top();
+			commandsListRedo.pop();
+		}
+	}	
+	else//if ( mapFigure.find(firstEntry) == mapFigure.end() && mapSelection.find(firstEntry) == mapSelection.end() )
+	{
+    	return "ERR\r\n# " + (string)firstEntry + " doesn't exist\r\n";
+	}
 	return "OK\r\n# The object " + (string)firstEntry + " has been moved by " 
     		 + std::to_string(coordX) + " over the x-axis and " + std::to_string(coordY)
 			 + " over the y-axis.\r\n";;
@@ -576,29 +503,6 @@ string DrawController::list()
 		cout << it->second->ToString();	
 	}
 	return "";
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
 
 string DrawController::undo()
@@ -607,10 +511,13 @@ string DrawController::undo()
 	{
 		return "OK\r\n# No UNDO avaible.\r\n";
 	}
-	commandsListUndo.top()->Undo();
-	commandsListRedo.push(commandsListUndo.top());
-	commandsListUndo.pop();
-    
+	if (!commandsListUndo.front()->Undo())
+	{
+		commandsListUndo.front()->Do();
+		return "ERR\r\n# Another figure with the same name isalready existing.\r\n";
+	}
+	commandsListRedo.push(commandsListUndo.front());
+	commandsListUndo.pop_front();
 	return "OK\r\n";
 }
 
@@ -620,10 +527,13 @@ string DrawController::redo()
 	{
 		return "OK\r\n# No REDO avaible.\r\n";
 	}
-	commandsListRedo.top()->Do();
-	commandsListUndo.push(commandsListRedo.top());
+	if (!commandsListRedo.top()->Do())
+	{
+		commandsListRedo.top()->Undo();
+		return "ERR\r\n# Another figure with the same name isalready existing.\r\n";
+	}
+	commandsListUndo.push_front(commandsListRedo.top());
 	commandsListRedo.pop();
-	
     return "OK\r\n";
 }
 
@@ -678,45 +588,28 @@ string DrawController::loadFigures( char * params )
     }
     else
 	{
-		return "ERR\r\n# File cannot be opened !";
+		return "ERR\r\n# File cannot be opened !\r\n";
 	}
 	file.seekg(ios_base::beg);
-	LoadCommand * ldCmd = new LoadCommand(&mapFigure, file);
-	ldCmd->Do();
-	commandsListUndo.push(ldCmd);
+	LoadCommand * ldCmd = new LoadCommand(&mapFigure, &mapSelection, file);
+	if (!ldCmd->Do())
+	{
+		file.close();
+		return "ERR\r\n# Another figure with the same name isalready existing.\r\n";
+	}
+	if (commandsListUndo.size() >= 20)
+	{
+		delete [] commandsListUndo.back();
+		commandsListUndo.pop_back();
+	}
+	commandsListUndo.push_front(ldCmd);
+	while (!commandsListRedo.empty())
+	{
+		delete commandsListRedo.top();
+		commandsListRedo.pop();
+	}
 	file.close();
     return "OK\r\n";
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
 
 string DrawController::saveFigures( char * params )
@@ -742,8 +635,31 @@ string DrawController::saveFigures( char * params )
         }
         else
         {
-			return "ERR\r\n# File cannot be opened !";
+			return "ERR\r\n# File cannot be opened !\r\n";
         }
 		return "OK\r\n# The file " + (string)firstEntry + " has been saved.\r\n";
 	}
+}
+
+string DrawController::clear()
+{
+	for (map<string,Selection *>::iterator it = mapSelection.begin(); it != mapSelection.end(); it++)
+	{
+		delete it->second;
+	}
+	mapSelection.clear();
+	ClearCommand * clCmd = new ClearCommand(&mapFigure);
+	clCmd->Do();
+	if (commandsListUndo.size() >= 20)
+	{
+		delete [] commandsListUndo.back();
+		commandsListUndo.pop_back();
+	}
+	commandsListUndo.push_front(clCmd);
+	while (!commandsListRedo.empty())
+	{
+		delete commandsListRedo.top();
+		commandsListRedo.pop();
+	}
+    return "OK\r\n";
 }

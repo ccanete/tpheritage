@@ -6,8 +6,8 @@
 *************************************************************************/
 
 //---------- Interface de la classe <AddCommand> (fichier AddCommand.h) ------
-#if ! defined ( AddCommand_H )
-#define AddCommand_H
+#if ! defined ( ADDCOMMAND_H )
+#define ADDCOMMAND_H
 
 #include "Command.h"
 
@@ -36,7 +36,7 @@ class AddCommand : public Command
 
 public:
 
-    AddCommand (map <string, Figure *> * mapFigure, char objType, char * params);
+    AddCommand (map <string, Figure *> * mapFigure, map <string, Selection *> * mapSelection, char objType, char * params);
     // Mode d'emploi :
     //
     // Contrat :
@@ -74,13 +74,7 @@ private:
     Figure * newFigure;
 
     map <string, Figure *> * myMapFigure;
-
-
-//----------------------------------------- Objets atributs
-
-    char * firstEntry, * secondEntry, * thirdEntry, * fourthEntry, * fifthEntry;
-    signed long coordX1, coordX2, coordY1, coordY2;
-    long radius;
+    map <string, Selection *> * myMapSelection;
 
 //---------------------------------------------------------- Classes amies
 
@@ -91,4 +85,4 @@ private:
 };
 
 
-#endif // AddCommand_H
+#endif // ADDCOMMAND_H

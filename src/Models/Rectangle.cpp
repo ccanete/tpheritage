@@ -82,11 +82,20 @@ string Rectangle::Display()
 //-------------------------------------------- Constructeurs - destructeur
 Rectangle::Rectangle ( string name, Point a, Point b ) : Figure(name), pointA(a), pointB(b)
 // Algorithme : Call to Figure's constructor and creation of two Points.
-
 {
 #ifdef MAP
     cout << "Appel au constructeur de <Rectangle>" << endl;
 #endif
+    if (a.GetX() < b.GetX())
+    {
+       pointA = a;
+       pointB = b;
+    }
+    else
+    {
+       pointA = b;
+       pointB = a;
+    }
 } //----- Fin de Rectangle
 
 

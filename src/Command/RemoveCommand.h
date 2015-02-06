@@ -6,8 +6,8 @@
 *************************************************************************/
 
 //---------- Interface de la classe <RemoveCommand> (fichier ${file_name}) ------
-#if ! defined ( RemoveCommand_H )
-#define RemoveCommand_H
+#if ! defined ( REMOVECOMMAND_H )
+#define REMOVECOMMAND_H
 
 //--------------------------------------------------- Interfaces utilisées
 #include "Command.h"
@@ -28,7 +28,7 @@ class RemoveCommand : public Command
 
 public:
 
-    RemoveCommand (Figure* figure, long dx, long dy);
+    RemoveCommand (map <string, Figure *> * mapFigure, map <string, Selection *> * mapSelection, char * params);
     /**
      * @constructor
      * @param figure The objet that will Remove
@@ -45,11 +45,11 @@ public:
 
 private:
 //------------------------------------------------------- Méthodes privées
-    Figure* figure_;
-    long dx_, dy_;
-
+    map <string, Figure *> myMapBackup;
+    map <string, Figure *> * myMapFigure;
+    map <string, Selection *> * myMapSelection;
 };
 
 //----------------------------------------- Types dépendants de <RemoveCommand>
 
-#endif // RemoveCommand_H
+#endif // REMOVECOMMAND_H

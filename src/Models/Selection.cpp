@@ -46,7 +46,7 @@ string Selection::Display()
 //----- Fin de Méthode
 
 string Selection::ToString()
-// Algorithme : Use of a stringstream to create a string to describe a selection.
+// Algorithme : Use of a string to create a description for a selection.
 {   
     string description = "# " + name + " is formed by these elements:\r\n";
     for (std::list<Figure *>::iterator it=listFigure.begin() ; it != listFigure.end(); ++it)
@@ -55,15 +55,43 @@ string Selection::ToString()
 }
 //----- Fin de Méthode
 
+std::string Selection::ListElements()
+// Algorithme : Use of a string to create a list (vector) of selection's elements.
+{   
+    std::string figures;
+    for (std::list<Figure *>::iterator it = listFigure.begin() ; it != listFigure.end(); it++)
+    {
+        figures += (*it)->GetName() + " ";
+    }
+    //figures += (*listFigure.end())->GetName();
+    return figures;
+}
+//----- Fin de Méthode
+
+std::list<Figure *> Selection::ListFigure()
+{
+    return listFigure;
+}
+
 //-------------------------------------------- Constructeurs - destructeur
 Selection::Selection ( string n, Point a, Point b, map<string,Figure *> &myMap ) : name(n), pointA(a), pointB(b)
 // Algorithme : Save selection's name, list of figure belongs to selection
 //              (map) and creation of two Points.
 {
+    if (a.GetX() < b.GetX())
+    {
+       pointA = a;
+       pointB = b;
+    }
+    else
+    {
+       pointA = b;
+       pointB = a;
+    }
     map<string,Figure *>::iterator it;
     for (it = myMap.begin(); it != myMap.end(); it++)
     {
-        if (it->second->IsInSelection(a, b))
+        if (it->second->IsInSelection(pointA, pointB))
         {
             listFigure.push_back(it->second);
             listFigure.sort();

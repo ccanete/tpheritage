@@ -6,17 +6,21 @@
 *************************************************************************/
 
 //---------- Interface de la classe <DrawController> (fichier DrawController.h) ------
-#if ! defined ( DrawController_H )
-#define DrawController_H
+#if ! defined ( DRAWCONTROLLER_H )
+#define DRAWCONTROLLER_H
 
 //--------------------------------------------------- Interfaces utilisées
 #include <map>
 #include <stack>
+#include <list>
 #include <string>
 
 #include "Command.h"
 #include "MoveCommand.h"
 #include "AddCommand.h"
+#include "RemoveCommand.h"
+#include "ClearCommand.h"
+#include "LoadCommand.h"
 
 #include "../Models/Figure.h"
 #include "../Models/Polyline.h"
@@ -26,8 +30,7 @@
 #include "../Models/Line.h"
 #include "../Models/Selection.h"
 #include "Command.h"
-#include "MoveCommand.h"
-#include "LoadCommand.h"
+
 
 //------------------------------------------------------------- Constantes 
 
@@ -112,12 +115,14 @@ private:
 
     string saveFigures ( char * params );
 
+    string clear();
+
 private:
 //------------------------------------------------------- Attributs privés
     map <string, Figure *> mapFigure;
-    map <string, Selection> mapSelection;
-    stack<Command *> commandsListUndo;
-    stack<Command *> commandsListRedo;
+    map <string, Selection *> mapSelection;
+    std::list<Command *> commandsListUndo;
+    std::stack<Command *> commandsListRedo;
 
 
 //---------------------------------------------------------- Classes amies
@@ -130,4 +135,4 @@ private:
 
 //----------------------------------------- Types dépendants de <DrawController>
 
-#endif // DrawController_H
+#endif // DRAWCONTROLLER_H

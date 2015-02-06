@@ -51,16 +51,6 @@ bool Figure::operator < ( const Figure &f )
 
 
 //-------------------------------------------- Constructeurs - destructeur
-Figure::Figure ( const Figure & unFigure )
-// Algorithme :
-//
-{
-#ifdef MAP
-    cout << "Appel au constructeur de copie de <Figure>" << endl;
-#endif
-} //----- Fin de Figure (constructeur de copie)
-
-
 Figure::Figure ( string name )
 // Algorithme :
 //

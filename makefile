@@ -7,7 +7,7 @@ ARFLAGS =
 
 # Sources
 MODELS_SRC = Figure.cpp Circle.cpp Point.cpp Line.cpp Polyline.cpp Rectangle.cpp Selection.cpp
-COMMAND_SRC = DrawController.cpp Command.cpp AddCommand.cpp RemoveCommand.cpp MoveCommand.cpp LoadCommand.cpp
+COMMAND_SRC = DrawController.cpp Command.cpp ClearCommand.cpp AddCommand.cpp RemoveCommand.cpp MoveCommand.cpp LoadCommand.cpp
 APPLICATION_SRC = Application.cpp
 
 # Objects
